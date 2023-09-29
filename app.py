@@ -14,3 +14,7 @@ def about():
 @app.route('/contact')
 def contact():
   return render_template('/pages/contacts.html')
+
+@app.route('/table')
+def table():
+    return render_template('/pages/table.html')
