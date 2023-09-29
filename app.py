@@ -5,12 +5,16 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-  return render_template('index.html')
+  return render_template('index.html', homeActive=True)
 
 @app.route('/about')
 def about():
-  return render_template('/pages/about-us.html')
+  return render_template('/pages/about-us.html', aboutActive=True)
+
+@app.route('/table')
+def table():
+  return render_template('/pages/table.html', tableActive=True)
 
 @app.route('/contact')
 def contact():
-  return render_template('/pages/contacts.html')
+  return render_template('/pages/contacts.html', contactActive=True)
