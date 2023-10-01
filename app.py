@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request
-
+from flask import Flask, render_template, request, flash, redirect, session
+from model import Database
 app = Flask(__name__)
-
+app.secret_key = '@#$123456&*()'
+db = Database()
 
 @app.route('/')
 def index():
@@ -26,3 +27,17 @@ def login():
 @app.route('/register')
 def register():
   return render_template('/pages/register.html', registerActive=True)
+
+@app.route('/insert', methods =['GET', 'POST'])
+def insert():
+    data = db.option()
+    if request.method == 'POST':
+        print(request.form)
+        if db.insert(request.form):
+            flash('Data Berhasil Disimpan')
+            return redirect('/table')
+        else:
+            flash('Data Gagal Disimpan')
+            return redirect('/table')
+        
+    return render_template('/pages/insert.html', insertActive=True, data=data)

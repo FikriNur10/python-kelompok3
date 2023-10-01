@@ -116,6 +116,14 @@
                     <a class="rd-nav-link" href="/table">Table</a>
                   </li>
 
+                  {% if insertActive == True %}
+                  <li class="rd-nav-item active">
+                  {% else %}
+                  <li class="rd-nav-item">
+                  {% endif %}
+                    <a class="rd-nav-link" href="/insert">Insert</a>
+                  </li>
+
                   {% if contactActive == True %}
                   <li class="rd-nav-item active">
                   {% else %}
