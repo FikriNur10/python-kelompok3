@@ -1,173 +1,100 @@
-{% extends 'layout.html' %}
-{% block content %}
-      <!-- Breadcrumbs -->
-      <section class="section novi-background breadcrumbs-custom bg-image context-dark" style="background-image: url(static/images/breadcrumbs-image-1.jpg);">
-        <div class="breadcrumbs-custom-inner">
-          <div class="container breadcrumbs-custom-container">
-            <div class="breadcrumbs-custom-main">
-              <h6 class="breadcrumbs-custom-subtitle title-decorated">Typography</h6>
-              <h2 class="text-uppercase breadcrumbs-custom-title">Typography</h2>
-            </div>
-            <ul class="breadcrumbs-custom-path">
-              <li><a href="/">Home</a></li>
-              <li class="active">Typography</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-      <!-- Base typography-->
-      <section class="section novi-background section-sm section-first">
-        <div class="container">
-          <div class="row row-50">
-            <div class="col-xl-8">
-              <ul class="list-xl">
-                <li>
-                  <h1>H1 Heading</h1>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>
-                </li>
-                <li>
-                  <h2>H2 Heading</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>
-                </li>
-                <li>
-                  <h3>H3 Heading</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>
-                </li>
-                <li>
-                  <h4>H4 Heading</h4>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>
-                </li>
-                <li>
-                  <h5>H5 Heading</h5>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>
-                </li>
-                <li>
-                  <h6>H6 Heading</h6>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Blockquote-->
-      <section class="section novi-background section-sm">
-        <div class="container">
-          <div class="row row-50">
-            <div class="col-lg-10 col-xl-8">
-              <h6>Blockquote</h6>
-              <!-- Quote Light-->
-              <blockquote class="quote-light">
-                <svg class="quote-light-mark" x="0px" y="0px" width="35px" height="25px" viewbox="0 0 35 25">
-                  <path d="M27.461,10.206h7.5v15h-15v-15L25,0.127h7.5L27.461,10.206z M7.539,10.206h7.5v15h-15v-15L4.961,0.127h7.5                L7.539,10.206z"></path>
-                </svg>
-                <div class="quote-light-text">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>
-                </div>
-              </blockquote>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- HTML Text Elements -->
-      <section class="section novi-background section-sm">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-10 col-xl-8">
-              <h6>HTML Text Elements</h6>
-              <p class="text-block"><a href="#">Text Link</a><a class="link-hover" href="#">Hover link</a><span class="font-weight-bold">Bold text</span>
-                <mark>This is a highlighted text</mark><span class="tooltip-custom" data-toggle="tooltip" data-placement="top" title="Tooltips text">Tooltips</span><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et</span><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et</span><span class="text-strike">Strikethrough text</span><span class="text-underline">Underlined text</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Unordered List-->
-      <section class="section novi-background section-sm">
-        <div class="container">
-          <div class="row row-50">
-            <div class="col-lg-10 col-xl-8">
-              <h6>Unordered List</h6>
-              <p>Sea quod soleat dolorum id. Tale lobortis laboramus eum no, ius vocibus pertinacia scribentur ex, qui consul semper no. Ne dicunt ponderum maiestatis sea, vix tollit eripuit scaevola ne</p>
-              <ul class="list-marked">
-                <li>Ei sumo eruditi sadipscing nec</li>
-                <li>Vel nihil percipitur ei. Fugit</li>
-                <li>Te partem omnesque eligendi has</li>
-                <li>Ei tollit euismod cum, augue</li>
-                <li>Tollit fuisset mei ea, has</li>
-              </ul>
-              <p>Ad posse doming appareat mea. Ex vix doctus minimum. Eleifend praesent cu pri, sed dicant laudem putent at. Sed eu</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Ordered List-->
-      <section class="section novi-background section-sm">
-        <div class="container">
-          <div class="row row-50">
-            <div class="col-lg-10 col-xl-8">
-              <h6>Ordered List</h6>
-              <p>No sit hinc alienum, has eligendi inciderint id. Eu pri alii habemus voluptaria. Volumus philosophia usu in. Deseruisse expetendis per ex, sale ocurreret te est. Nam eu stet graeci</p>
-              <ol class="list-ordered">
-                <li>Ut velit ocurreret consequuntur</li>
-                <li>Ius at congue vocent. Quo at</li>
-                <li>Cu facer nobis feugait mel</li>
-                <li>Mutat nostrud habemus sed ex</li>
-                <li>Vide etiam apeirian qui cu</li>
-              </ol>
-              <p>i has commodo eripuit, saperet postulant ei nam, id duis probo mea. Pro iriure noluisse voluptaria ut</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Centered image-->
-      <section class="section novi-background section-sm">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-10 col-xl-8">
-              <h6>Centered image</h6>
-              <figure class="figure-light"><img class="img-centered" src="images/typography-1-770x456.jpg" alt="" width="770" height="456"/>
-                <figcaption>
-                  <p>Offering the best properties</p>
-                </figcaption>
-              </figure>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Left aligned image-->
-      <section class="section novi-background section-sm">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-10 col-xl-8">
-              <h6>Left aligned image</h6>
-              <div class="row row-30">
-                <div class="col-md-6"><img src="images/typography-2-770x456.jpg" alt="" width="770" height="456"/>
-                </div>
-                <div class="col-md-6">
-                  <p>Suavitate assentior vituperata eam ut, democritum voluptaria consetetur an mei. Quod maluisset pro ex, eligendi tincidunt complectitur eos ne. Ei cotidieque voluptatibus</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Right aligned image-->
-      <section class="section novi-background section-sm section-last">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-10 col-xl-8">
-              <h6>Right aligned image</h6>
-              <div class="row row-30 flex-md-row-reverse">
-                <div class="col-md-6"><img src="images/typography-3-770x456.jpg" alt="" width="770" height="456"/>
-                </div>
-                <div class="col-md-6">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+{% extends 'layout.html' %} {% block content %}
+<!-- Breadcrumbs -->
+<section
+  class="section novi-background breadcrumbs-custom bg-image context-dark"
+  style="background-image: url(https://images.unsplash.com/photo-1541194577687-8c63bf9e7ee3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGRhcmslMjByb29tfGVufDB8fDB8fHww&w=1000&q=80)"
+>
+  <div class="breadcrumbs-custom-inner">
+    <div class="container breadcrumbs-custom-container">
+      <div class="breadcrumbs-custom-main">
+        <h6 class="breadcrumbs-custom-subtitle title-decorated">Our Recommendation</h6>
+        <h2 class="text-uppercase breadcrumbs-custom-title">Table</h2>
+      </div>
+      <ul class="breadcrumbs-custom-path">
+        <li><a href="/">Home</a></li>
+        <li class="active">Table</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- Base typography-->
+<section class="section novi-background section-sm section-first">
+  <div class="container">
+    <div>
+      <h1>Top Properties of the Month</h1>
+      <p>
+        Discover the crème de la crème of real estate with our 'Top Property This Month' feature. Every month, we handpick the most extraordinary properties that stand out in terms of design, location, and value. These elite listings
+        represent the pinnacle of luxury and innovation in the world of real estate.
+      </p>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Photo</th>
+            <th scope="col">Property Name</th>
+            <th scope="col">Region</th>
+            <th scope="col">Value</th>
+            <th scope="col">Rooms</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>
+              <img
+                src="https://d33wubrfki0l68.cloudfront.net/3e09eb77df946a1890880d689b2667070f7f3fe9/da4ed/travel-magazine/look-out-the-most-stunning-sea-view-villas-in-europe/_hu27f8a18f0f2957d7e38c4a41aeab57c7_332011_8f0b619693f2f9deeca55bab1088ca72.jpg"
+                alt="Property 1"
+              />
+            </td>
+            <td>Luxury Villa by the Sea</td>
+            <td>Miami Beach</td>
+            <td>$2,500,000</td>
+            <td>12</td>
+            <td>For Sale</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td><img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/230886084.jpg?k=4e401e24cd1edcbc26c418d7ba7805390f8cd35db0b5c77867a82f0b86c7d23e&o=&hp=1" alt="Property 2" /></td>
+            <td>Elegant Downtown Condo</td>
+            <td>New York City</td>
+            <td>$1,200,000</td>
+            <td>12</td>
+            <td>For Sale</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td><img src="https://www.exploregeorgia.org/sites/default/files/styles/listing_slideshow/public/listing_images/profile/38534/c2b847b9cbf3ae50270facf644e2bc45_MtnRetreat1.jpg?itok=j6fiP-KX" alt="Property 3" /></td>
+            <td>Mountain Retreat Cabin</td>
+            <td>Aspen</td>
+            <td>$1,800,000</td>
+            <td>12</td>
+            <td>For Sale</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="padding: 100px 50px">
+      <h3>What Makes Our 'Top Property This Month' Special?</h3>
+      <div style="padding: 50px 0px">
+        <h5>🌟 Luxury Redefined</h5>
+        <p>Our 'Top Property This Month' showcases the epitome of luxury living. From elegant penthouses with breathtaking city views to secluded beachfront villas with private infinity pools, these properties redefine opulence.</p>
+        <h5>🏡 Prime Locations</h5>
+        <p>
+          Location is everything in real estate, and our featured properties are strategically situated in some of the most coveted neighborhoods and destinations. Whether it's urban living, serene countryside, or a tropical paradise, we
+          have you covered.
+        </p>
+        <h5>💎 Unmatched Features</h5>
+        <p>These properties boast a range of unparalleled features, from smart home technology and eco-friendly design to sprawling gardens and world-class amenities. Each one is a masterpiece in its own right.</p>
+        <h5>🔒 Limited Availability</h5>
+        <p>Our 'Top Property This Month' is a testament to exclusivity, with limited availability. If you're looking to invest in luxury real estate or find your dream home, don't miss the chance to explore these exceptional listings.</p>
+        <h5>📆 Monthly Showcase</h5>
+        <p>Keep coming back every month to discover a fresh selection of remarkable properties. Our commitment to excellence means you'll always find something extraordinary in our 'Top Property This Month' collection.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 {% endblock %}
