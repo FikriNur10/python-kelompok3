@@ -78,10 +78,33 @@
                     <div class="col-md-6 wow-outer">
                       <div class="form-wrap wow fadeSlideInUp">
                         <label class="form-label-outside" for="contact-phone">Phone</label>
-                        <input class="form-input" id="contact-phone" type="text" name="phone"
+                        <input class="form-input" id="contact-phone" type="number" name="phone"
                           data-constraints="@PhoneNumber">
                       </div>
                     </div>
+                    <div class="col-md-6 wow-outer">
+                      <div class="form-wrap wow fadeSlideInUp">
+                        <label class="form-label-outside" for="contact-gender">Gender</label>
+                        <input id="contact-male" type="radio" name="gender" value="Male"
+                          data-constraints="@Gender">
+                        <label for="contact-male">Male</label>
+                        <input id="contact-female" type="radio" name="gender" value="Female"
+                          data-constraints="@Gender">
+                        <label for="contact-female">Female</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6 wow-outer">
+                      <div class="form-wrap wow fadeSlideInUp">
+                        <label class="form-label-outside" for="contact-nation">Nationality</label>
+                        <select name="nation" id="contact-nation">
+                          <option value="indonesia">Indonesia</option>
+                          <option value="australia">Australia</option>
+                          <option value="singapore">Singapore</option>
+                          <option value="china">China</option>
+                          <option value="usa">USA</option>
+                        </select>                        
+                      </div>
+                    </div>                    
                     <div class="col-12 wow-outer">
                       <div class="form-wrap wow fadeSlideInUp">
                         <label class="form-label-outside" for="contact-message">Your Message</label>
@@ -90,16 +113,27 @@
                       </div>
                     </div>
                   </div>
+                  <div class="wow-outer">
+                    <div class="form-wrap wow fadeSlideInUp">
+                      <label class="form-label-outside" for="contact-tag">Tag</label>
+                      <input id="contact-tag1" type="checkbox" name="tag1" value="order"
+                        data-constraints="@Tag">
+                      <label for="contact-tag1">Order</label>
+                      <input id="contact-tag2" type="checkbox" name="tag2" value="problem"
+                        data-constraints="@Tag">
+                      <label for="contact-tag2">Problem</label>
+                    </div>
+                  </div>
                   <div class="group group-middle">
                     <div class="wow-outer">
                       <button class="button button-primary button-winona wow slideInRight" type="submit">Send
                         Message</button>
                     </div>
-                    <p>or use</p>
+                    <!-- <p>or use</p>
                     <div class="wow-outer"><a
                         class="button button-primary-outline button-icon button-icon-left button-winona wow slideInLeft"
                         href="#"><span
-                          class="icon novi-icon text-primary mdi mdi-facebook-messenger"></span>Messenger</a></div>
+                          class="icon novi-icon text-primary mdi mdi-facebook-messenger"></span>Messenger</a></div> -->
                   </div>
                 </form>
               </div>
