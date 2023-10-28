@@ -18,3 +18,11 @@ def table():
 @app.route('/contact')
 def contact():
   return render_template('/pages/contacts.html', contactActive=True)
+
+@app.route('/login')
+def login():
+  return render_template('/pages/login.html', loginActive=True)
+
+@app.route('/register')
+def register():
+  return render_template('/pages/register.html', registerActive=True)
