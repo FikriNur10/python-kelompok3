@@ -46,5 +46,9 @@ def transaction():
   data = db.readtransaction(None)
   return render_template('/pages/transaction.html', propertyActive=True, data=data)
 
+@app.route('/update')
+def edit():
+  return render_template('/pages/update.html', propertyActive=True)
+
 if __name__ == '__main__':
     app.run(debug = True)
