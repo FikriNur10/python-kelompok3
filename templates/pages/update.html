@@ -6,58 +6,35 @@
       <h1>Update</h1>
     </div>
     <div>
-      <form method="post" action="/submit">
-        <!-- Ganti '/submit' dengan URL yang sesuai -->
+      {% for row in data %}
+      <form action="/update" method="POST" enctype="multipart/form-data">
         <div class="form-group">
-          <div>
-            <label for="id">ID:</label>
-          </div>
-          <div>
-            <input type="text" id="id" name="id" required />
-          </div>
+          <label for="name">Nama Gedung</label>
+          <input type="text" class="form-control" name="name" placeholder="Nama Gedung" value="{{row[1]}}" required />
         </div>
-
         <div class="form-group">
-          <div>
-            <label for="name">Nama:</label>
-          </div>
-          <div>
-            <input type="text" id="name" name="name" required />
-          </div>
+          <label for="address">Alamat Gedung</label>
+          <input type="text" class="form-control" name="address" value="{{row[2]}}" placeholder="Jl. Budi Indah ...." required />
         </div>
-
         <div class="form-group">
-          <div>
-            <label for="address">Alamat:</label>
-          </div>
-          <div>
-            <input type="text" id="address" name="address" required />
-          </div>
+          <label for="category_id">Kategori</label>
+          <select name="category_id" class="form-control">
+            {% for row in data %}
+            <option value="{{row[0]}}">{{row[1]}}</option>
+            {% endfor %}
+          </select>
         </div>
-
         <div class="form-group">
-          <div>
-            <label for="price">Harga:</label>
-          </div>
-          <div>
-            <input type="text" id="price" name="price" required />
-          </div>
+          <label for="price">Harga</label>
+          <input type="number" class="form-control" name="price" placeholder="Harga" value="{{row[4]}}" required />
         </div>
-
         <div class="form-group">
-          <div>
-            <label for="description">Deskripsi:</label>
-          </div>
-          <div>
-            <textarea id="description" name="description" rows="4" required></textarea>
-          </div>
+          <label for="description">Deskripsi</label>
+          <textarea name="description" class="form-control" rows="2" value="{{row[5]}}" placeholder="Deskripsi..."></textarea>
         </div>
-
-        <input type="submit" value="Update" class="button-Update" />
-        <div>
-          <a href="/" class="button-Cancel">Cancel</a>
-        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
       </form>
+      {% endfor %}
     </div>
   </div>
 </section>

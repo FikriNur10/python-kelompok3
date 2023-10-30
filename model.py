@@ -95,3 +95,30 @@ class Database:
             return False
         finally:
             con.close()
+    
+    def delete(self, id):
+        con = Database.connect(self)
+        cursor = con.cursor()
+        try:
+            cursor.execute('DELETE FROM properties where id = %s', (id,))
+            con.commit()
+            return True
+        except:
+            con.rollback()
+            return False
+        finally:
+            con.close()
+    
+    def edit(self, id, data):
+        con = Database.connect(self)
+        cursor = con.cursor()
+        try:
+            cursor.execute('UPDATE properties SET name = %s, address = %s, category_id = %s, price = %s, description = %s where id = %s',
+                                    (data['name'],data['address'],data['category_id'],data['price'],data['description'],id,))
+            con.commit()
+            return True
+        except:
+            con.rollback()
+            return False
+        finally:
+            con.close()

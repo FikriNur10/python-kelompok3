@@ -35,9 +35,6 @@ def index():
 def about():
   return render_template('/pages/about-us.html', aboutActive=True)
 
-@app.route('/table')
-def table():
-  return render_template('/pages/table.html', tableActive=True)
 
 @app.route('/contact')
 def contact():
@@ -106,9 +103,39 @@ def transaction():
   data = db.readtransaction(None)
   return render_template('/pages/transaction.html', propertyActive=True, data=data)
 
-@app.route('/update')
-def edit():
-  return render_template('/pages/update.html', propertyActive=True)
+# admin
+@app.route('/manage')
+def manage():
+  data = db.read(None)
+  return render_template('/pages/manage.html', propertyActive=True,data=data)
+
+@app.route('/delete/<int:id>')
+def hapus(id):
+    if db.delete(id):
+        flash('Data Berhasil Dihapus')
+        return redirect('/manage')
+    else:
+        flash('Data Gagal Dihapus')
+        return redirect('/manage')
+
+@app.route('/update/<int:id>')
+def edit(id):
+  session['id'] = id
+  return redirect('/update')
+
+@app.route('/update', methods=['GET','POST'])
+def update():
+  id = session['id']
+  data = db.read(id)
+  if request.method == 'POST':
+        if db.edit(id, request.form):
+            flash('Data Berhasil Diubah')
+            session.pop('id', None)
+            return redirect('/manage')
+        else:
+            flash('Data Gagal Diupdate')
+            return redirect('/manage')
+  return render_template('/pages/update.html', data=data)
 
 if __name__ == '__main__':
     app.run(debug = True)
