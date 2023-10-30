@@ -51,6 +51,7 @@ def insert():
 @app.route('/property')
 def property():
   data = db.read(None)
+  print(data)
   return render_template('/pages/property.html', propertyActive=True, data=data)
 
 @app.route('/transaction')
