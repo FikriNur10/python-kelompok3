@@ -17774,3 +17774,10 @@ html[data-x-mode]:not(.lt-ie10) .not-animated {
 		display: none;
 	}
 }
+
+.pt-80{
+	padding-top: 80px;
+}
+.pb-80{
+	padding-bottom: 80px;
+}

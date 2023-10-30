@@ -1,5 +1,4 @@
-{% extends 'layout.html' %} 
-{% block content %}
+{% extends 'layout.html' %} {% block content %}
 <!-- Breadcrumbs -->
 <section class="section novi-background bg-gray-100">
 	<div class="container pt-80 pb-80">
@@ -9,8 +8,7 @@
 					<div class="heading_container">
 						<h2>Create Data Gedung</h2>
 					</div>
-
-					<form action="/insert" method="POST">
+					<form action="/insert" method="POST" enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="name">Nama Gedung</label>
 							<input
@@ -35,9 +33,7 @@
 							<label for="category_id">Kategori</label>
 							<select name="category_id" class="form-control">
 								{% for row in data %}
-								<option value="{{row[0]}}">
-									{{row[1]}}
-								</option>
+								<option value="{{row[0]}}">{{row[1]}}</option>
 								{% endfor %}
 							</select>
 						</div>
@@ -53,7 +49,12 @@
 						</div>
 						<div class="form-group">
 							<label for="description">Deskripsi</label>
-							<textarea name="description" class="form-control" rows="2" placeholder="Deskripsi..."></textarea>
+							<textarea
+								name="description"
+								class="form-control"
+								rows="2"
+								placeholder="Deskripsi..."
+							></textarea>
 						</div>
 
 						<button type="submit" class="btn btn-primary">
@@ -64,7 +65,11 @@
 			</div>
 			<div class="col-md-4">
 				<div class="img-box">
-					<img src="../../static/images/building.png" alt="" style="margin-top: 100px;"/>
+					<img
+						src="../../static/images/building.png"
+						alt=""
+						style="margin-top: 100px"
+					/>
 				</div>
 			</div>
 		</div>
