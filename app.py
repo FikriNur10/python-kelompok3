@@ -4,11 +4,28 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.secret_key = '@#$123456&*()'
 app.config['SQLALCHEMY_DATABASE_URI'] = \
-    'mysql://root:''@localhost/flask2023'
+    'mysql://root:''@localhost/property_database'
 app.config['SQLALCHEMY_TRACK_MODIFICATION'] = True
 
 db = Database()
 alchemy = SQLAlchemy(app)
+
+class User(alchemy.Model):
+  __tablename__ = 'user'
+  fullname = alchemy.Column(alchemy.String(100))
+  email = alchemy.Column(alchemy.String(100))
+  username = alchemy.Column(alchemy.String(20), primary_key = True)
+  password = alchemy.Column(alchemy.String(50))
+
+  def __init__(self, fullname, email, username, password):
+    self.fullname = fullname
+    self.email = email
+    self.username = username
+    self.password = password
+
+  def __repr__(self):
+    return '[%s,%s,%s,%s, %s]' % \
+    (self.fullname, self.email, self.username, self.password)
 
 @app.route('/')
 def index():
@@ -26,12 +43,42 @@ def table():
 def contact():
   return render_template('/pages/contacts.html', contactActive=True)
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+  if request.method == 'POST':
+    if db.checklogin(request.form):
+      session['username'] = request.form['username']
+      return redirect('/')
+    else:
+      flash('Username or Password are wrong')
+      return redirect('/login')
   return render_template('/pages/login.html', loginActive=True)
 
-@app.route('/register')
+@app.route('/logout')
+def logout():
+  session.pop('username', None)
+  return redirect('/')
+
+@app.route('/register', methods =['GET', 'POST'])
 def register():
+  if request.method == 'POST':
+    if request.form['password'] == request.form['confirm']:
+      if db.checkuser(request.form):              
+        fullname = request.form["fullname"]
+        email = request.form["email"]
+        username = request.form["username"]
+        password = request.form["password"]
+        query = User(fullname,email,username,password)
+        alchemy.session.add(query)
+        alchemy.session.commit()
+        flash('Register successed!')
+        return redirect('/login')
+      else:
+        flash('Username has already taken, please try another!')
+        return redirect('/register')
+    else:
+      flash('Password does not match')
+      return redirect('/register')
   return render_template('/pages/register.html', registerActive=True)
 
 @app.route('/insert', methods =['GET', 'POST'])

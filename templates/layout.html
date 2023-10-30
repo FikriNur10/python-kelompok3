@@ -164,17 +164,15 @@
 												>
 											</div>
 										</article>
-										<a
-											class="button button-gray-bordered button-winona"
-											href="/register"
-											>Register</a
-										>
-										<a
-											class="button button-gray-bordered button-winona"
-											href="/login"
-											>Login</a
-										>
-									</div>
+									
+										{% if session.username %}
+										<a href="/" class="button button-gray-bordered button-winona">{{session.username}}</a>
+										<a class="button button-gray-bordered button-winona" href="/logout">LOGOUT</a>
+										{% else %}
+										<a class="button button-gray-bordered button-winona" href="/register">Register</a>
+										<a class="button button-gray-bordered button-winona" href="/login">Login</a>
+										{% endif %}
+									</div>									
 								</div>
 							</div>
 						</div>
@@ -269,7 +267,7 @@
 										</li>
 									</ul>
 								</div>
-							</div>
+							</div>							
 						</div>
 					</nav>
 				</div>
