@@ -1,0 +1,87 @@
+{% extends 'layout.html' %} {% block content %}
+<!-- Breadcrumbs -->
+<section
+  class="section novi-background breadcrumbs-custom bg-image context-dark"
+  style="background-image: url(https://images.unsplash.com/photo-1541194577687-8c63bf9e7ee3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGRhcmslMjByb29tfGVufDB8fDB8fHww&w=1000&q=80)"
+>
+  <div class="breadcrumbs-custom-inner">
+    <div class="container breadcrumbs-custom-container">
+      <div class="breadcrumbs-custom-main">
+        <h6 class="breadcrumbs-custom-subtitle title-decorated">Our Recommendation</h6>
+        <h2 class="text-uppercase breadcrumbs-custom-title">Table</h2>
+      </div>
+      <ul class="breadcrumbs-custom-path">
+        <li><a href="/">Home</a></li>
+        <li class="active">Table</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- Base typography-->
+<section class="section novi-background section-sm section-first">
+  <div class="container">
+    <div>
+      <h1>Top Properties of the Month</h1>
+      <p>
+        Discover the crème de la crème of real estate with our 'Top Property This Month' feature. Every month, we handpick the most extraordinary properties that stand out in terms of design, location, and value. These elite listings
+        represent the pinnacle of luxury and innovation in the world of real estate.
+      </p>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Photo</th>
+            <th scope="col">Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% if data|length == 0 %}
+            <b>No Entry Has Been Added</b> <br/>
+        {% else %}
+            {% for row in data %}
+          <tr>
+            <th scope="row">{{row[0]}}</th>
+            <td>
+              <img
+                src="https://d33wubrfki0l68.cloudfront.net/3e09eb77df946a1890880d689b2667070f7f3fe9/da4ed/travel-magazine/look-out-the-most-stunning-sea-view-villas-in-europe/_hu27f8a18f0f2957d7e38c4a41aeab57c7_332011_8f0b619693f2f9deeca55bab1088ca72.jpg"
+                alt="Property 1"
+              />
+            </td>
+            <td>{{row[1]}}</td>
+            <td>{{row[2]}}</td>
+            <td>{{row[3]}}</td>
+            <td>{{row[4]}}</td>
+            <td>{{row[5]}}</td>
+        </tbody>
+        {% endfor %}
+        {% endif %}
+      </table>
+    </div>
+    <div style="padding: 100px 50px">
+      <h3>What Makes Our 'Top Property This Month' Special?</h3>
+      <div style="padding: 50px 0px">
+        <h5>🌟 Luxury Redefined</h5>
+        <p>Our 'Top Property This Month' showcases the epitome of luxury living. From elegant penthouses with breathtaking city views to secluded beachfront villas with private infinity pools, these properties redefine opulence.</p>
+        <h5>🏡 Prime Locations</h5>
+        <p>
+          Location is everything in real estate, and our featured properties are strategically situated in some of the most coveted neighborhoods and destinations. Whether it's urban living, serene countryside, or a tropical paradise, we
+          have you covered.
+        </p>
+        <h5>💎 Unmatched Features</h5>
+        <p>These properties boast a range of unparalleled features, from smart home technology and eco-friendly design to sprawling gardens and world-class amenities. Each one is a masterpiece in its own right.</p>
+        <h5>🔒 Limited Availability</h5>
+        <p>Our 'Top Property This Month' is a testament to exclusivity, with limited availability. If you're looking to invest in luxury real estate or find your dream home, don't miss the chance to explore these exceptional listings.</p>
+        <h5>📆 Monthly Showcase</h5>
+        <p>Keep coming back every month to discover a fresh selection of remarkable properties. Our commitment to excellence means you'll always find something extraordinary in our 'Top Property This Month' collection.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
