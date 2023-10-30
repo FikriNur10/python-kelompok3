@@ -116,6 +116,22 @@
                     <a class="rd-nav-link" href="/table">Table</a>
                   </li>
 
+                  {% if propertyActive == True %}
+                  <li class="rd-nav-item active">
+                  {% else %}
+                  <li class="rd-nav-item">
+                  {% endif %}
+                    <a class="rd-nav-link" href="/property">Property</a>
+                  </li>
+
+                  {% if transactionActive == True %}
+                  <li class="rd-nav-item active">
+                  {% else %}
+                  <li class="rd-nav-item">
+                  {% endif %}
+                    <a class="rd-nav-link" href="/transaction">Transaction</a>
+                  </li>
+
                   {% if contactActive == True %}
                   <li class="rd-nav-item active">
                   {% else %}
