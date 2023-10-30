@@ -44,7 +44,7 @@
         {% if data|length == 0 %}
             <b>No Entry Has Been Added</b> <br/>
         {% else %}
-            {% for row in data %}
+        {% for row in data %}
           <tr>
             <th scope="row">{{row[0]}}</th>
             <td>
@@ -53,11 +53,11 @@
                 alt="Property 1"
               />
             </td>
-            <td>{{row[1]}}</td>
             <td>{{row[2]}}</td>
             <td>{{row[3]}}</td>
             <td>{{row[4]}}</td>
             <td>{{row[5]}}</td>
+            <td>{{row[6]}}</td>
         </tbody>
         {% endfor %}
         {% endif %}

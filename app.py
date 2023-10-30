@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, redirect, session
-from flask_sqlalchemy import SQLAlchemy
 from model import Database
+from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.secret_key = '@#$123456&*()'
 app.config['SQLALCHEMY_DATABASE_URI'] = \
@@ -9,8 +9,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATION'] = True
 
 db = Database()
 alchemy = SQLAlchemy(app)
-
-
 
 @app.route('/')
 def index():
@@ -36,9 +34,24 @@ def login():
 def register():
   return render_template('/pages/register.html', registerActive=True)
 
+@app.route('/insert', methods =['GET', 'POST'])
+def insert():
+    data = db.option()
+    if request.method == 'POST':
+        print(request.form)
+        if db.insert(request.form):
+            flash('Data Berhasil Disimpan')
+            return redirect('/table')
+        else:
+            flash('Data Gagal Disimpan')
+            return redirect('/table')
+        
+    return render_template('/pages/insert.html', insertActive=True, data=data)
+
 @app.route('/property')
 def property():
   data = db.read(None)
+  print(data)
   return render_template('/pages/property.html', propertyActive=True, data=data)
 
 @app.route('/transaction')

@@ -1,0 +1,73 @@
+{% extends 'layout.html' %} 
+{% block content %}
+<!-- Breadcrumbs -->
+<section class="section novi-background bg-gray-100">
+	<div class="container pt-80 pb-80">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="detail-box">
+					<div class="heading_container">
+						<h2>Create Data Gedung</h2>
+					</div>
+
+					<form action="/insert" method="POST">
+						<div class="form-group">
+							<label for="name">Nama Gedung</label>
+							<input
+								type="text"
+								class="form-control"
+								name="name"
+								placeholder="Nama Gedung"
+								required
+							/>
+						</div>
+						<div class="form-group">
+							<label for="address">Alamat Gedung</label>
+							<input
+								type="text"
+								class="form-control"
+								name="address"
+								placeholder="Jl. Budi Indah ...."
+								required
+							/>
+						</div>
+						<div class="form-group">
+							<label for="category_id">Kategori</label>
+							<select name="category_id" class="form-control">
+								{% for row in data %}
+								<option value="{{row[0]}}">
+									{{row[1]}}
+								</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="price">Harga</label>
+							<input
+								type="number"
+								class="form-control"
+								name="price"
+								placeholder="Harga"
+								required
+							/>
+						</div>
+						<div class="form-group">
+							<label for="description">Deskripsi</label>
+							<textarea name="description" class="form-control" rows="2" placeholder="Deskripsi..."></textarea>
+						</div>
+
+						<button type="submit" class="btn btn-primary">
+							Save
+						</button>
+					</form>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="img-box">
+					<img src="../../static/images/building.png" alt="" style="margin-top: 100px;"/>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
