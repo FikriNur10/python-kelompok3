@@ -109,12 +109,18 @@
                     {% if session.username %}
                     <div class="dropdown show">
                       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{session.username}} </a>
-
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                      </div>
+                      {% if session.username == 'admin' %}
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" href="/insert">Insert</a>
                         <a class="dropdown-item" href="/manage">Manage</a>
                         <a class="dropdown-item" href="/logout">Logout</a>
                       </div>
+                      {% else %}
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"></div>
+                      {% endif %}
                     </div>
                     {% else %}
                     <a class="button button-gray-bordered button-winona" href="/register">Register</a>

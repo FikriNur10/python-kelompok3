@@ -107,7 +107,7 @@ def transaction():
 @app.route('/manage')
 def manage():
   data = db.read(None)
-  return render_template('/pages/manage.html', propertyActive=True,data=data)
+  return render_template('/pages/manage.html',data=data)
 
 @app.route('/delete/<int:id>')
 def hapus(id):
