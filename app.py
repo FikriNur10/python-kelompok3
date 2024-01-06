@@ -85,10 +85,10 @@ def insert():
         print(request.form)
         if db.insert(request.form):
             flash('Data Berhasil Disimpan')
-            return redirect('/table')
+            return redirect('/manage')
         else:
             flash('Data Gagal Disimpan')
-            return redirect('/table')
+            return redirect('/manage')
         
     return render_template('/pages/insert.html', insertActive=True, data=data)
 
