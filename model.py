@@ -1,4 +1,6 @@
 import pymysql
+import logging
+
 
 class Database:
     def connect(self):
@@ -14,19 +16,46 @@ class Database:
             return ()
         finally:
             con.close() 
+
     def read(self, id):
         con = Database.connect(self)
         cursor = con.cursor()
         try:
-            if id == None:
+            if id is None:
                 cursor.execute('SELECT * FROM properties')
             else:
-                cursor.execute('SELECT * FROM properties where id = %s',(id,))
-            return cursor.fetchall()
-        except:
-            return ()
+                cursor.execute('SELECT * FROM properties WHERE id = %s', (id,))
+
+            properties = cursor.fetchall()
+
+            result = []
+            for prop in properties:
+                cursor.execute('SELECT name FROM property_galleries WHERE property_id = %s', (prop[0],))
+                galleries = cursor.fetchall()
+                if galleries:
+                    # Mengambil gambar pertama dari setiap galeri
+                    image = galleries[0][0]
+                else:
+                    image = None
+
+                prop_dict = {
+                    'id': prop[0],
+                    'name': prop[1],
+                    'address': prop[2],
+                    'price': prop[4],
+                    'description': prop[5],
+                    'image': image
+                }
+                result.append(prop_dict)
+
+            return result
+        except Exception as e:
+            logging.error(f"Error in read: {e}")
+            return []
         finally:
             con.close()
+
+
 
     def insert(self, data):
         con = Database.connect(self)
@@ -34,6 +63,19 @@ class Database:
         try:
             cursor.execute('INSERT INTO properties(name, address, category_id, price, description) VALUES(%s, %s, %s, %s, %s)',
                                 (data['name'], data['address'], data['category_id'], data['price'], data['description'],))
+            con.commit()
+            inserted_id = cursor.lastrowid
+            return ['Data Berhasil Disimpan', inserted_id]
+        except:
+            con.rollback()
+            return 'Data Gagal Disimpan'
+
+    def insertImage(self, id, name):
+        con = Database.connect(self)
+        cursor = con.cursor()
+        try:
+            cursor.execute('INSERT INTO  property_galleries (property_id, name) VALUES(%s, %s)',
+                                (id, name,))
             con.commit()
             return 'Data Berhasil Disimpan'
         except:

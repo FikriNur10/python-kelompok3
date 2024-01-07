@@ -8,7 +8,11 @@
 					<div class="heading_container">
 						<h2>Create Data Gedung</h2>
 					</div>
-					<form action="/insert" method="POST" enctype="multipart/form-data">
+					<form
+						action="/insert"
+						method="POST"
+						enctype="multipart/form-data"
+					>
 						<div class="form-group">
 							<label for="name">Nama Gedung</label>
 							<input
@@ -55,6 +59,17 @@
 								rows="2"
 								placeholder="Deskripsi..."
 							></textarea>
+						</div>
+
+						<div class="form-group">
+							<label for="imageInput">Image input</label>
+							<input
+								type="file"
+								class="form-control-file"
+								id="imageInput"
+								name="files"
+								multiple
+							/>
 						</div>
 
 						<button type="submit" class="btn btn-primary">

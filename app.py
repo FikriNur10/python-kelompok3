@@ -1,7 +1,12 @@
 from flask import Flask, render_template, request, flash, redirect, session
 from model import Database
+import os
+from werkzeug.utils import secure_filename
+
 app = Flask(__name__)
 app.secret_key = '@#$123456&*()'
+folder_upload = app.config['UPLOAD_FOLDER'] = os.path.realpath('.')+'\\static\\uploads\\'
+app.config['MAX_CONTENT_LENGTH'] = 5 *1024*1024 
 
 db = Database()
 
@@ -48,14 +53,40 @@ def register():
       return redirect('/register')
   return render_template('/pages/register.html', registerActive=True)
 
-@app.route('/insert', methods =['GET', 'POST'])
+@app.route('/insert', methods=['GET', 'POST'])
 def insert():
     data = db.option()
     if request.method == 'POST':
-        print(request.form)
-        flash(db.insert(request.form))
-        return redirect('/manage')
+        files = request.files.getlist('files')
+        property_data = {
+            'name': request.form['name'],
+            'address': request.form['address'],
+            'category_id': request.form['category_id'],
+            'price': request.form['price'],
+            'description': request.form['description']
+        }
+        
+        try:
+            result = db.insert(property_data)
+            if isinstance(result, list):
+                inserted_id = result[1]
+                # Insert data gambar untuk setiap file yang diunggah
+                for file in files:
+                    filename = secure_filename(file.filename)
+                    directory = folder_upload+filename
+                    file.save(directory)
+                    db.insertImage(inserted_id, filename)
+
+                flash('Data Berhasil Disimpan')
+                return redirect('/manage')
+            flash(result)
+            return redirect('/insert')
+        except:
+            flash('Data Tidak Bisa Diupload')
+            return redirect('/insert')
+
     return render_template('/pages/insert.html', insertActive=True, data=data)
+
 
 @app.route('/property')
 def property():
