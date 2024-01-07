@@ -2,9 +2,6 @@ from flask import Flask, render_template, request, flash, redirect, session
 from model import Database
 app = Flask(__name__)
 app.secret_key = '@#$123456&*()'
-app.config['SQLALCHEMY_DATABASE_URI'] = \
-    'mysql://root:''@localhost/property_database'
-app.config['SQLALCHEMY_TRACK_MODIFICATION'] = True
 
 db = Database()
 
