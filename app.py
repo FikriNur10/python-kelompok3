@@ -107,7 +107,17 @@ def manage():
 
 @app.route('/delete/<int:id>')
 def hapus(id):
-    flash(db.delete(id))
+    if db.delete(id):
+        listImage = db.getAllImage(id)
+        if isinstance(listImage, list):
+            for image in listImage:
+               directory = folder_upload+image
+               os.remove(directory)
+        db.deleteAllImage(id)
+        flash('Data Berhasil Dihapus')
+    else:
+        flash('Data Gagal Dihapus')
+       
     return redirect('/manage')
 
 @app.route('/update/<int:id>')
@@ -119,15 +129,37 @@ def edit(id):
 def update():
   id = session['id']
   data = db.read(id)
+  option = db.option()
   if request.method == 'POST':
-        if db.edit(id, request.form):
+        files = request.files.getlist('files')
+        property_data = {
+            'name': request.form['name'],
+            'address': request.form['address'],
+            'category_id': request.form['category_id'],
+            'price': request.form['price'],
+            'description': request.form['description']
+        }
+        if db.edit(id, property_data):
+            listImage = db.getAllImage(id)
+            if isinstance(listImage, list):
+                for image in listImage:
+                   directory = folder_upload+image
+                   os.remove(directory)
+            db.deleteAllImage(id)
+
+            for file in files:
+                filename = secure_filename(file.filename)
+                directory = folder_upload+filename
+                file.save(directory)
+                db.insertImage(id, filename)
+                
             flash('Data Berhasil Diubah')
             session.pop('id', None)
             return redirect('/manage')
         else:
             flash('Data Gagal Diupdate')
             return redirect('/manage')
-  return render_template('/pages/update.html', data=data)
+  return render_template('/pages/update.html', data=data, option=option)
 
 if __name__ == '__main__':
     app.run(debug = True)

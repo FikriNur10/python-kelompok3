@@ -40,8 +40,8 @@
           <p>{{row['description']}}.</p>
         </article>
         <div style="padding: 10px 0px">
-          <a href="/delete/{{row[0]}}" class="btn" style="background-color: red; color: white; margin-right: 10px">Delete</a>
-          <a href="/update/{{row[0]}}" class="btn" style="background-color: blue; color: white">Update</a>
+          <a href="/delete/{{row['id']}}" class="btn" style="background-color: red; color: white; margin-right: 10px">Delete</a>
+          <a href="/update/{{row['id']}}" class="btn" style="background-color: blue; color: white">Update</a>
         </div>
       </div>
       {% endfor %} {% endif %}

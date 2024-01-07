@@ -25,6 +25,7 @@ class Database:
                 cursor.execute('SELECT * FROM properties')
             else:
                 cursor.execute('SELECT * FROM properties WHERE id = %s', (id,))
+                return cursor.fetchall()
 
             properties = cursor.fetchall()
 
@@ -74,7 +75,7 @@ class Database:
         con = Database.connect(self)
         cursor = con.cursor()
         try:
-            cursor.execute('INSERT INTO  property_galleries (property_id, name) VALUES(%s, %s)',
+            cursor.execute('INSERT INTO property_galleries (property_id, name) VALUES(%s, %s)',
                                 (id, name,))
             con.commit()
             return 'Data Berhasil Disimpan'
@@ -133,10 +134,10 @@ class Database:
         try:
             cursor.execute('DELETE FROM properties where id = %s', (id,))
             con.commit()
-            return 'Data Berhasil Dihapus'
+            return True
         except:
             con.rollback()
-            return 'Data Gagal Dihapus'
+            return False
         finally:
             con.close()
     
@@ -151,5 +152,28 @@ class Database:
         except:
             con.rollback()
             return False
+        finally:
+            con.close()
+
+    def getAllImage(self, id):
+        con = Database.connect(self)
+        cursor = con.cursor()
+        try:
+            cursor.execute('SELECT name FROM property_galleries WHERE property_id = %s', (id,))
+            return [item[0] for item in cursor.fetchall()]
+        except:
+            return []
+        finally:
+            con.close()
+
+    def deleteAllImage(self, id):
+        con = Database.connect(self)
+        cursor = con.cursor()
+        try:
+            cursor.execute('DELETE FROM property_galleries WHERE property_id = %s', (id,))
+            con.commit()
+            return 'All Image Removed'
+        except:
+            return 'Image Removing Failed'
         finally:
             con.close()
