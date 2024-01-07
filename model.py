@@ -35,10 +35,10 @@ class Database:
             cursor.execute('INSERT INTO properties(name, address, category_id, price, description) VALUES(%s, %s, %s, %s, %s)',
                                 (data['name'], data['address'], data['category_id'], data['price'], data['description'],))
             con.commit()
-            return True
+            return 'Data Berhasil Disimpan'
         except:
             con.rollback()
-            return False
+            return 'Data Gagal Disimpan'
             
     def readtransaction(self, id):
         con = Database.connect(self)
@@ -54,20 +54,6 @@ class Database:
         finally:
             con.close()
 
-    def checkuser(self, data):
-        con = Database.connect(self)
-        cursor = con.cursor()
-        try:
-            cursor.execute('SELECT * FROM user where username = %s',(str(data['username']),))
-            if len(cursor.fetchall()) == 0:
-                return True
-            else:
-                return False
-        except:
-            return False
-        finally:
-            con.close()
-
     def adduser(self, data):
         con = Database.connect(self)
         cursor = con.cursor()
@@ -75,10 +61,10 @@ class Database:
             cursor.execute('INSERT INTO user(fullname, email, username, password) VALUES(%s, %s, %s, %s)',
                                 (data['fullname'], data['email'], data['username'], data['password'],))
             con.commit()
-            return True
+            return ["Register successed!",'/login']
         except:
             con.rollback()
-            return False
+            return ["Username has already taken, please try another!",'/register']
         finally:
             con.close()
 
@@ -86,26 +72,29 @@ class Database:
         con = Database.connect(self)
         cursor = con.cursor()
         try:
-            cursor.execute('SELECT * FROM user where username = %s and password = %s',(data['username'],data['password'],))
-            if len(cursor.fetchall()) != 0:
-                return True
-            else:
-                return False
-        except:
+            cursor.execute('SELECT * FROM user WHERE username = %s AND password = %s', (data['username'], data['password'],))
+            result = cursor.fetchall()  
+
+            if len(result) == 0:
+                return False    
+
+            return [result[0][2], result[0][4]]
+        except Exception as e:
+            print(f"Error: {e}")
             return False
         finally:
             con.close()
-    
+
     def delete(self, id):
         con = Database.connect(self)
         cursor = con.cursor()
         try:
             cursor.execute('DELETE FROM properties where id = %s', (id,))
             con.commit()
-            return True
+            return 'Data Berhasil Dihapus'
         except:
             con.rollback()
-            return False
+            return 'Data Gagal Dihapus'
         finally:
             con.close()
     

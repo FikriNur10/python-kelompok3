@@ -110,7 +110,7 @@
                     <div class="dropdown show">
                       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{session.username}}</a>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          {% if session.username == 'admin' %}
+                          {% if session.role == 'admin' %}
                           <a class="dropdown-item" href="/insert">Insert</a>
                           <a class="dropdown-item" href="/manage">Manage</a>
                           {% endif %}

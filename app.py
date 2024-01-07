@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, flash, redirect, session
 from model import Database
-from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.secret_key = '@#$123456&*()'
 app.config['SQLALCHEMY_DATABASE_URI'] = \
@@ -8,24 +7,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
 app.config['SQLALCHEMY_TRACK_MODIFICATION'] = True
 
 db = Database()
-alchemy = SQLAlchemy(app)
-
-class User(alchemy.Model):
-  __tablename__ = 'user'
-  fullname = alchemy.Column(alchemy.String(100))
-  email = alchemy.Column(alchemy.String(100))
-  username = alchemy.Column(alchemy.String(20), primary_key = True)
-  password = alchemy.Column(alchemy.String(50))
-
-  def __init__(self, fullname, email, username, password):
-    self.fullname = fullname
-    self.email = email
-    self.username = username
-    self.password = password
-
-  def __repr__(self):
-    return '[%s,%s,%s,%s, %s]' % \
-    (self.fullname, self.email, self.username, self.password)
 
 @app.route('/')
 def index():
@@ -43,13 +24,15 @@ def contact():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
   if request.method == 'POST':
-    if db.checklogin(request.form):
-      session['username'] = request.form['username']
-      return redirect('/')
-    else:
+    temp = db.checklogin(request.form)
+    if not temp:
       flash('Username or Password are wrong')
       return redirect('/login')
+    session['username'] = temp[0]
+    session['role'] = temp[1]
+    return redirect('/')
   return render_template('/pages/login.html', loginActive=True)
+
 
 @app.route('/logout')
 def logout():
@@ -60,19 +43,9 @@ def logout():
 def register():
   if request.method == 'POST':
     if request.form['password'] == request.form['confirm']:
-      if db.checkuser(request.form):              
-        fullname = request.form["fullname"]
-        email = request.form["email"]
-        username = request.form["username"]
-        password = request.form["password"]
-        query = User(fullname,email,username,password)
-        alchemy.session.add(query)
-        alchemy.session.commit()
-        flash('Register successed!')
-        return redirect('/login')
-      else:
-        flash('Username has already taken, please try another!')
-        return redirect('/register')
+        temp = db.adduser(request.form)                 
+        flash(temp[0])
+        return redirect(temp[1])
     else:
       flash('Password does not match')
       return redirect('/register')
@@ -83,13 +56,8 @@ def insert():
     data = db.option()
     if request.method == 'POST':
         print(request.form)
-        if db.insert(request.form):
-            flash('Data Berhasil Disimpan')
-            return redirect('/manage')
-        else:
-            flash('Data Gagal Disimpan')
-            return redirect('/manage')
-        
+        flash(db.insert(request.form))
+        return redirect('/manage')
     return render_template('/pages/insert.html', insertActive=True, data=data)
 
 @app.route('/property')
@@ -111,12 +79,8 @@ def manage():
 
 @app.route('/delete/<int:id>')
 def hapus(id):
-    if db.delete(id):
-        flash('Data Berhasil Dihapus')
-        return redirect('/manage')
-    else:
-        flash('Data Gagal Dihapus')
-        return redirect('/manage')
+    flash(db.delete(id))
+    return redirect('/manage')
 
 @app.route('/update/<int:id>')
 def edit(id):

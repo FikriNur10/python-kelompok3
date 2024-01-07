@@ -37,6 +37,7 @@
 							data-form-type="contact"
 							method="POST"
 							action="/register"
+							onsubmit="return validateForm()"
 						>
 							<div class="row row-10">
 								<div class="col-12 wow-outer">
@@ -51,9 +52,13 @@
 											id="inputFullname"
 											type="text"
 											name="fullname"
-                                            placeholder="Full Name"
+											placeholder="Full Name"
 											data-constraints="@Fullname @Required"
 										/>
+										<span
+											id="errorFullname"
+											class="invalid-feedback"
+										></span>
 									</div>
 								</div>
 								<div class="col-12 wow-outer">
@@ -68,9 +73,13 @@
 											id="inputEmail"
 											type="email"
 											name="email"
-                                            placeholder="email@email.com"
+											placeholder="email@email.com"
 											data-constraints="@Email @Required"
 										/>
+										<span
+											id="errorEmail"
+											class="invalid-feedback"
+										></span>
 									</div>
 								</div>
 								<div class="col-12 wow-outer">
@@ -85,9 +94,13 @@
 											id="inputUsername"
 											type="text"
 											name="username"
-                                            placeholder="username"
+											placeholder="username"
 											data-constraints="@Username @Required"
 										/>
+										<span
+											id="errorUsername"
+											class="invalid-feedback"
+										></span>
 									</div>
 								</div>
 								<div class="col-12 wow-outer">
@@ -105,9 +118,13 @@
 											placeholder="password"
 											data-constraints="@Password @Required"
 										/>
+										<span
+											id="errorPassword"
+											class="invalid-feedback"
+										></span>
 									</div>
-								</div>	
-                                <div class="col-12 wow-outer">
+								</div>
+								<div class="col-12 wow-outer">
 									<div class="form-wrap wow fadeSlideInUp">
 										<label
 											class="form-label-outside"
@@ -120,11 +137,15 @@
 											type="password"
 											name="confirm"
 											placeholder="confirm password"
-											data-constraints="@CconfirmPassword @Required"
+											data-constraints="@ConfirmPassword @Required"
 										/>
+										<span
+											id="errorConfirmPassword"
+											class="invalid-feedback"
+										></span>
 									</div>
-								</div>							
-							</div>							
+								</div>
+							</div>
 							<div class="group group-middle">
 								<div class="wow-outer">
 									<button
@@ -133,7 +154,7 @@
 									>
 										Register
 									</button>
-								</div>                    
+								</div>
 							</div>
 						</form>
 					</div>
@@ -160,4 +181,74 @@
 		</div>
 	</div>
 </section>
+
+<script>
+	function validateForm() {
+		var fullname = document.getElementById("inputFullname").value;
+		var email = document.getElementById("inputEmail").value;
+		var username = document.getElementById("inputUsername").value;
+		var password = document.getElementById("inputPassword").value;
+		var confirmPassword = document.getElementById("confirmPassword").value;
+
+		// Reset error messages
+		document.getElementById("errorFullname").innerHTML = "";
+		document.getElementById("errorEmail").innerHTML = "";
+		document.getElementById("errorUsername").innerHTML = "";
+		document.getElementById("errorPassword").innerHTML = "";
+		document.getElementById("errorConfirmPassword").innerHTML = "";
+
+		if (fullname === "") {
+			document.getElementById("errorFullname").innerHTML =
+				"Please enter your full name.";
+			return false;
+		}
+
+		if (email === "") {
+			document.getElementById("errorEmail").innerHTML =
+				"Please enter your email address.";
+			return false;
+		} else if (!validateEmail(email)) {
+			document.getElementById("errorEmail").innerHTML =
+				"Please enter a valid email address.";
+			return false;
+		}
+
+		if (username === "") {
+			document.getElementById("errorUsername").innerHTML =
+				"Please enter a username.";
+			return false;
+		}
+
+		if (password === "") {
+			document.getElementById("errorPassword").innerHTML =
+				"Please enter a password.";
+			return false;
+		} else if (password.length < 8) {
+			document.getElementById("errorPassword").innerHTML =
+				"Password must be at least 8 characters long.";
+			return false;
+		}
+
+		if (confirmPassword === "") {
+			document.getElementById("errorConfirmPassword").innerHTML =
+				"Please confirm your password.";
+			return false;
+		} else if (password !== confirmPassword) {
+			document.getElementById("errorConfirmPassword").innerHTML =
+				"Passwords do not match.";
+			return false;
+		}
+
+		// You can add more specific validation checks here if needed.
+
+		return true; // If all validations pass, the form will be submitted.
+	}
+
+	function validateEmail(email) {
+		// Basic email validation using a regular expression
+		var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return emailRegex.test(email);
+	}
+</script>
+
 {% endblock %}
