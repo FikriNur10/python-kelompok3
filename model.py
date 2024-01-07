@@ -177,3 +177,30 @@ class Database:
             return 'Image Removing Failed'
         finally:
             con.close()
+
+    def getPrice(self, id):
+        con = Database.connect(self)
+        cursor = con.cursor()
+        try:
+            cursor.execute('SELECT price FROM properties WHERE id = %s', (id,))
+            return [item[0] for item in cursor.fetchall()]
+        except:
+            return []
+        finally:
+            con.close()
+
+    def addTransaction(self, username, price, id):
+        con = Database.connect(self)
+        cursor = con.cursor()
+        try:
+            cursor.execute('INSERT INTO transactions(user_name, total_price) VALUES(%s, %s)',(username, price,))
+            con.commit()
+            transactionId = cursor.lastrowid
+            cursor.execute('INSERT INTO transaction_items(user_name, property_id, transaction_id) VALUES(%s, %s, %s)',(username, id, transactionId,))
+            con.commit()
+            return "Transaction successed!"
+        except:
+            con.rollback()
+            return "Transaction Failed!"
+        finally:
+            con.close()

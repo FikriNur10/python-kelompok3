@@ -91,7 +91,6 @@ def insert():
 @app.route('/property')
 def property():
   data = db.read(None)
-  print(data)
   return render_template('/pages/property.html', propertyActive=True, data=data)
 
 @app.route('/transaction')
@@ -119,6 +118,13 @@ def hapus(id):
         flash('Data Gagal Dihapus')
        
     return redirect('/manage')
+
+@app.route('/buy/<int:id>')
+def buy(id):
+    username = session['username']
+    price = db.getPrice(id)
+    flash(db.addTransaction(username, price, id))
+    return redirect('/property')
 
 @app.route('/update/<int:id>')
 def edit(id):
