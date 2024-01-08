@@ -2,11 +2,16 @@ from flask import Flask, render_template, request, flash, redirect, session
 from model import Database
 import os
 from werkzeug.utils import secure_filename
+from flask_mail import Mail, Message
 
 app = Flask(__name__)
 app.secret_key = '@#$123456&*()'
 folder_upload = app.config['UPLOAD_FOLDER'] = os.path.realpath('.')+'\\static\\uploads\\'
 app.config['MAX_CONTENT_LENGTH'] = 5 *1024*1024 
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
 
 db = Database()
 
@@ -167,6 +172,80 @@ def update():
             flash('Data Gagal Diupdate')
             return redirect('/manage')
   return render_template('/pages/update.html', data=data, option=option)
+
+@app.route('/email', methods=['GET', 'POST'])
+def email():
+    alluser = db.readuser(None)
+    emailuser = db.readuser(session['username'])
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        to = request.form['emailkepada']
+        subject = request.form['subject']
+        message = request.form['isiemail']
+        app.config['MAIL_USERNAME'] = email
+        app.config['MAIL_PASSWORD'] = password
+        if to == 'all':
+            allemail=[]
+            for i in alluser:
+                allemail.append(i[1])
+            pesan = Message(subject, sender=email, recipients=allemail)
+            pesan.body = message
+        else:
+            pesan = Message(subject, sender=email, recipients=[to])
+            pesan.body = message
+        try:
+            mail = Mail(app)
+            mail.connect()
+            mail.send(pesan)
+            flash('Email Berhasil Dikirim ke '+ to)
+            return redirect('/email')
+        # except:
+        #     flash('Email Gagal Dikirim ke '+ to)
+        #     return redirect('/email')
+        except Exception as e:
+            print(f"Error sending email: {str(e)}")
+            flash('Email Gagal Dikirim ke '+ to)
+            return redirect('/email')
+
+    return render_template('pages/email.html', emailactive = True, alluser=alluser, emailuser=emailuser)
+
+@app.route('/email', methods=['GET', 'POST'])
+def email():
+    alluser = db.readuser(None)
+    emailuser = db.readuser(session['username'])
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        to = request.form['emailkepada']
+        subject = request.form['subject']
+        message = request.form['isiemail']
+        app.config['MAIL_USERNAME'] = email
+        app.config['MAIL_PASSWORD'] = password
+        if to == 'all':
+            allemail=[]
+            for i in alluser:
+                allemail.append(i[1])
+            pesan = Message(subject, sender=email, recipients=allemail)
+            pesan.body = message
+        else:
+            pesan = Message(subject, sender=email, recipients=[to])
+            pesan.body = message
+        try:
+            mail = Mail(app)
+            mail.connect()
+            mail.send(pesan)
+            flash('Email Berhasil Dikirim ke '+ to)
+            return redirect('/email')
+        # except:
+        #     flash('Email Gagal Dikirim ke '+ to)
+        #     return redirect('/email')
+        except Exception as e:
+            print(f"Error sending email: {str(e)}")
+            flash('Email Gagal Dikirim ke '+ to)
+            return redirect('/email')
+
+    return render_template('pages/email.html', emailactive = True, alluser=alluser, emailuser=emailuser)
 
 if __name__ == '__main__':
     app.run(debug = True)

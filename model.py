@@ -200,3 +200,17 @@ class Database:
             return "Transaction Failed!"
         finally:
             con.close()
+
+    def readuser(self, username):
+        con = Database.connect(self)
+        cursor = con.cursor()
+        try:
+            if username == None:
+                cursor.execute('SELECT * FROM user')
+            else:
+                cursor.execute('SELECT * FROM user WHERE username = %s',(username,))
+            return cursor.fetchall()
+        except:
+            return ()
+        finally:
+            con.close()
