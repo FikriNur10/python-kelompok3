@@ -44,7 +44,7 @@
 						<form class="rd-form rd-mailform" action="/email" method="POST">
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="inputTanggal">Email User</label>
+                  <label for="inputTanggal">User Email</label>
                   {% for row in emailuser %}
                   <input type="email" class="form-control" name='email' value='{{row[1]}}'>
                   {% endfor %}
@@ -56,7 +56,7 @@
               </div>
               <br/>
               <div class="form-group">
-                <label for="inputJudul">Email Tujuan</label>
+                <label for="inputJudul">To</label>
                 <select name='emailkepada'>
                   <option value= "all" >All</option>
                   {% for row in alluser %}
@@ -69,10 +69,10 @@
                 <input type="text" class="form-control" name='subject' placeholder="Judul Subject Email">
               </div>
               <div class="form-group">
-                <label for="inputTanggal">Isi Email</label>
+                <label for="inputTanggal">Message</label>
                 <textarea class="form-control" name='isiemail'></textarea>
               </div>
-              <button type="submit" class="btn btn-primary">Save</button>  
+              <button type="submit" class="btn btn-primary">Send</button>  
             </form>
 					</div>
 				</div>
