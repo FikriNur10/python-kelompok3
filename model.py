@@ -84,15 +84,20 @@ class Database:
             return 'Data Gagal Disimpan'
             
     def readtransaction(self, id):
-        con = Database.connect(self)
+        con = self.connect()
         cursor = con.cursor()
         try:
-            if id == None:
+            if id is None:
                 cursor.execute('SELECT * FROM transactions')
             else:
-                cursor.execute('SELECT * FROM transactions where id = %s',(id,))
-            return cursor.fetchall()
-        except:
+                cursor.execute('SELECT * FROM transactions where id = %s', (id,))
+            
+            data = cursor.fetchall()
+            print(f"Data from readtransaction: {data}")  # Tambahkan baris ini
+
+            return data
+        except Exception as e:
+            print(f"Error in readtransaction: {e}")
             return ()
         finally:
             con.close()

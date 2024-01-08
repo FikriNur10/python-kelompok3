@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, flash, redirect, session
+from flask import Flask, render_template, request, flash, redirect, session, make_response
 from model import Database
 import os
 from werkzeug.utils import secure_filename
+import pdfkit
 
 app = Flask(__name__)
 app.secret_key = '@#$123456&*()'
@@ -203,6 +204,20 @@ def update():
             flash('Data Gagal Diupdate')
             return redirect('/manage')
   return render_template('/pages/update.html', data=data, option=option)
+
+@app.route('/pdf')
+def pdf():
+    data = db.readtransaction(None)  
+    rendered = render_template('/pages/pdftemplate.html', data=data)
+
+    config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
+    
+    pdf = pdfkit.from_string(rendered, configuration=config)
+    
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'attachment; filename=report.pdf'
+    return response
 
 if __name__ == '__main__':
     app.run(debug = True)

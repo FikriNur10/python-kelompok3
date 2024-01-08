@@ -163,6 +163,15 @@
                       <a class="rd-nav-link" href="/transaction">Transaction</a>
                     </li>
 
+                    {% if PDFActive == True %}
+                    <li class="rd-nav-item active">{% else %}</li>
+
+                    <li class="rd-nav-item">
+                      {% endif %}
+                      <a class="rd-nav-link" href="/pdf">PDF</a>
+                    </li>
+
+
                     {% if contactActive == True %}
                     <li class="rd-nav-item active">{% else %}</li>
 
