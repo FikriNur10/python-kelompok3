@@ -226,7 +226,7 @@ def email():
         if to == 'all':
             allemail=[]
             for i in alluser:
-                allemail.append(i[1])
+                allemail.append(i[2])
             pesan = Message(subject, sender=email, recipients=allemail)
             pesan.body = message
         else:
@@ -238,11 +238,7 @@ def email():
             mail.send(pesan)
             flash('Email Berhasil Dikirim ke '+ to)
             return redirect('/email')
-        # except:
-        #     flash('Email Gagal Dikirim ke '+ to)
-        #     return redirect('/email')
-        except Exception as e:
-            print(f"Error sending email: {str(e)}")
+        except:
             flash('Email Gagal Dikirim ke '+ to)
             return redirect('/email')
 
