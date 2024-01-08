@@ -57,7 +57,6 @@ class Database:
             con.close()
 
 
-
     def insert(self, data):
         con = Database.connect(self)
         cursor = con.cursor()
@@ -121,7 +120,7 @@ class Database:
             if len(result) == 0:
                 return False    
 
-            return [result[0][2], result[0][4]]
+            return [result[0][3], result[0][5]]
         except Exception as e:
             print(f"Error: {e}")
             return False
@@ -188,15 +187,12 @@ class Database:
             return []
         finally:
             con.close()
-
-    def addTransaction(self, username, price, id):
+            
+    def addTransaction(self, image_name, username, price):
         con = Database.connect(self)
         cursor = con.cursor()
         try:
-            cursor.execute('INSERT INTO transactions(user_name, total_price) VALUES(%s, %s)',(username, price,))
-            con.commit()
-            transactionId = cursor.lastrowid
-            cursor.execute('INSERT INTO transaction_items(user_name, property_id, transaction_id) VALUES(%s, %s, %s)',(username, id, transactionId,))
+            cursor.execute('INSERT INTO transactions(image_name, user_name, total_price) VALUES(%s, %s, %s)',(image_name, username, price,))
             con.commit()
             return "Transaction successed!"
         except:

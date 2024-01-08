@@ -96,7 +96,7 @@ def property():
 @app.route('/transaction')
 def transaction():
   data = db.readtransaction(None)
-  return render_template('/pages/transaction.html', propertyActive=True, data=data)
+  return render_template('/pages/transaction.html', transactionActive=True, data=data)
 
 # admin
 @app.route('/manage')
@@ -123,7 +123,8 @@ def hapus(id):
 def buy(id):
     username = session['username']
     price = db.getPrice(id)
-    flash(db.addTransaction(username, price, id))
+    image_name = db.getAllImage(id)
+    flash(db.addTransaction(image_name[0], username, price))
     return redirect('/property')
 
 @app.route('/update/<int:id>')

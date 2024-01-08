@@ -17768,6 +17768,12 @@ html[data-x-mode]:not(.lt-ie10) .not-animated {
     object-fit: contain;
 }
 
+.img-table {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    object-fit: cover;
+}
 
 .banner {
 	display: block;
