@@ -93,7 +93,7 @@ class Database:
                 cursor.execute('SELECT * FROM transactions where id = %s', (id,))
             
             data = cursor.fetchall()
-            print(f"Data from readtransaction: {data}")  # Tambahkan baris ini
+            print(f"Data from readtransaction: {data}")
 
             return data
         except Exception as e:
