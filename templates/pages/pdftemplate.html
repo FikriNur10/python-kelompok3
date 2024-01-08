@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border='1' class="table table-bordered">
+        <thead>
+         <tr class="table-primary">
+            <th class="text-center">ID</th>   
+            <th class="text-center">PHOTO</th>         
+            <th class="text-center">ID_USER</th>
+            <th class="text-center">PAYMENT</th>         
+            <th class="text-center">TOTAL PRICE</th>
+            <th class="text-center">STATUS</th>    
+            <th class="text-center">DATE</th>      
+         </tr>
+        </thead>
+        <tbody>
+         {% if data|length == 0 %}
+           <b>No Entry Has Been Added</b> <br/>
+         {% else %}
+           {% for row in data %}
+         <tr>
+            <td class="text-center"><b>{{row[0]}}</b></td>   
+            <td class="text-center"><b>{{row[1]}}</b></td>   
+            <td class="text-center"><b>{{row[2]}}</b></td>
+            <td class="text-center"><b>{{row[3]}}</b></td>   
+            <td class="text-center"><b>{{row[4]}}</b></td>
+            <td class="text-center"><b>{{row[5]}}</b></td>
+            <td class="text-center"><b>{{row[6]}}</b></td>
+         </tr>
+         {% endfor %}
+         {% endif %}
+
+    
+        </tbody>
+       </table>
+</body>
+</html>

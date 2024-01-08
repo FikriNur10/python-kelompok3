@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, flash, redirect, session
+from flask import Flask, render_template, request, flash, redirect, session, make_response
 from model import Database
 import os
 from werkzeug.utils import secure_filename
 from flask_mail import Mail, Message
+import pdfkit
 
 app = Flask(__name__)
 app.secret_key = '@#$123456&*()'
@@ -109,6 +110,43 @@ def manage():
   data = db.read(None)
   return render_template('/pages/manage.html',data=data)
 
+@app.route('/manageuser')
+def manageuser():
+  data = db.readusers(None)
+  return render_template('/pages/Datauser.html',data=data)
+
+@app.route('/deleteuser/<int:id>')
+def delete_user(id):
+    
+    success = db.delete_user_by_id(id)
+    
+    if success:
+        return redirect('/manageuser')
+    else:
+        return "Failed to delete user"
+
+@app.route('/edituser/<int:id>')
+def edituser(id):
+    session['id'] = id
+    return redirect('/updateuser')
+
+@app.route('/updateuser', methods=['GET', 'POST'])
+def updateuser():
+    id = session.get('id')
+    data = db.read_user_by_id(id)
+
+    if request.method == 'POST':
+        if db.update_user_by_id(id, request.form):
+            flash('Data Berhasil Diubah')
+            session.pop('id', None)
+            return redirect('/manageuser')
+        else:
+            flash('Data Gagal Diupdate')
+            return redirect('/manageuser')
+
+    return render_template('/pages/updateuser.html', data=data[0] if data else None)
+
+
 @app.route('/delete/<int:id>')
 def hapus(id):
     if db.delete(id):
@@ -210,42 +248,19 @@ def email():
 
     return render_template('pages/email.html', emailactive = True, alluser=alluser, emailuser=emailuser)
 
-@app.route('/email', methods=['GET', 'POST'])
-def email():
-    alluser = db.readuser(None)
-    emailuser = db.readuser(session['username'])
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-        to = request.form['emailkepada']
-        subject = request.form['subject']
-        message = request.form['isiemail']
-        app.config['MAIL_USERNAME'] = email
-        app.config['MAIL_PASSWORD'] = password
-        if to == 'all':
-            allemail=[]
-            for i in alluser:
-                allemail.append(i[1])
-            pesan = Message(subject, sender=email, recipients=allemail)
-            pesan.body = message
-        else:
-            pesan = Message(subject, sender=email, recipients=[to])
-            pesan.body = message
-        try:
-            mail = Mail(app)
-            mail.connect()
-            mail.send(pesan)
-            flash('Email Berhasil Dikirim ke '+ to)
-            return redirect('/email')
-        # except:
-        #     flash('Email Gagal Dikirim ke '+ to)
-        #     return redirect('/email')
-        except Exception as e:
-            print(f"Error sending email: {str(e)}")
-            flash('Email Gagal Dikirim ke '+ to)
-            return redirect('/email')
+@app.route('/pdf')
+def pdf():
+    data = db.readtransaction(None)  
+    rendered = render_template('/pages/pdftemplate.html', data=data)
 
-    return render_template('pages/email.html', emailactive = True, alluser=alluser, emailuser=emailuser)
+    config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
+    
+    pdf = pdfkit.from_string(rendered, configuration=config)
+    
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'attachment; filename=report.pdf'
+    return response
 
 if __name__ == '__main__':
     app.run(debug = True)

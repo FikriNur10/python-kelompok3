@@ -83,15 +83,20 @@ class Database:
             return 'Data Gagal Disimpan'
             
     def readtransaction(self, id):
-        con = Database.connect(self)
+        con = self.connect()
         cursor = con.cursor()
         try:
-            if id == None:
+            if id is None:
                 cursor.execute('SELECT * FROM transactions')
             else:
-                cursor.execute('SELECT * FROM transactions where id = %s',(id,))
-            return cursor.fetchall()
-        except:
+                cursor.execute('SELECT * FROM transactions where id = %s', (id,))
+            
+            data = cursor.fetchall()
+            print(f"Data from readtransaction: {data}")
+
+            return data
+        except Exception as e:
+            print(f"Error in readtransaction: {e}")
             return ()
         finally:
             con.close()
@@ -107,6 +112,60 @@ class Database:
         except:
             con.rollback()
             return ["Username has already taken, please try another!",'/register']
+        finally:
+            con.close()
+    
+    def readusers(self, data):
+        con = self.connect()
+        cursor = con.cursor()
+        try:
+            cursor.execute('SELECT * FROM user')
+            return cursor.fetchall()
+        except Exception as e:
+            print(f"Error: {e}")
+            return ()
+        finally:
+            con.close()
+    
+       
+    def delete_user_by_id(self, id):
+        con = self.connect()
+        cursor = con.cursor()
+        try:
+            cursor.execute('DELETE FROM user WHERE id = %s', (id,))
+            con.commit()
+            return True
+        except Exception as e:
+            print(f"Error: {e}")
+            con.rollback()
+            return False
+        finally:
+            con.close()
+
+    def read_user_by_id(self, id):
+        con = self.connect()
+        cursor = con.cursor()
+        try:
+            cursor.execute('SELECT * FROM user WHERE id = %s', (id,))
+            return cursor.fetchall()
+        except Exception as e:
+            print(f"Error: {e}")
+            return ()
+        finally:
+            con.close()
+
+    def update_user_by_id(self, id, data):
+        con = self.connect()
+        cursor = con.cursor()
+        try:
+            cursor.execute('UPDATE user SET fullname = %s, email = %s, username = %s, password = %s WHERE id = %s',
+                        (data['fullname'], data['email'], data['username'], data['password'], id))
+            con.commit()
+            return True
+        except Exception as e:
+            print(f"Error: {e}")
+            con.rollback()
+            return False
         finally:
             con.close()
 

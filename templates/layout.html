@@ -114,6 +114,7 @@
                           <a class="dropdown-item" href="/insert">Insert</a>
                           <a class="dropdown-item" href="/manage">Manage</a>
                           <a class="dropdown-item" href="/email">Email</a>
+                          <a class="dropdown-item" href="/manageuser">Manageuser</a>
                           {% endif %}
                           <a class="dropdown-item" href="/logout">Logout</a>
                       </div>
@@ -162,6 +163,15 @@
                       {% endif %}
                       <a class="rd-nav-link" href="/transaction">Transaction</a>
                     </li>
+
+                    {% if PDFActive == True %}
+                    <li class="rd-nav-item active">{% else %}</li>
+
+                    <li class="rd-nav-item">
+                      {% endif %}
+                      <a class="rd-nav-link" href="/pdf">PDF</a>
+                    </li>
+
 
                     {% if contactActive == True %}
                     <li class="rd-nav-item active">{% else %}</li>

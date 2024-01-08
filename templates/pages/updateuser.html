@@ -1,0 +1,35 @@
+{% extends 'layout.html' %} 
+{% block content %}
+<link rel="stylesheet" href="/static/css/update.css" />
+
+<section class="Update">
+  <div class="Wrapper">
+    <div class="Wrapper-update">
+      <h1>Update User</h1>
+    </div>
+    <div>
+      <form action="/updateuser" method="POST" enctype="multipart/form-data">
+        {% if data %}
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" class="form-control" name="fullname" placeholder="Handi kurniwan" value="{{data[1]}}" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" name="email" value="{{data[2]}}" placeholder="Handikurniawan59@gmail.com" required />
+          </div>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username" placeholder="handi123" value="{{data[3]}}" required />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Enter new password" required />
+          </div>
+        {% endif %}
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}
