@@ -146,7 +146,6 @@ def updateuser():
 
     return render_template('/pages/updateuser.html', data=data[0] if data else None)
 
-
 @app.route('/delete/<int:id>')
 def hapus(id):
     if db.delete(id):
@@ -162,12 +161,14 @@ def hapus(id):
        
     return redirect('/manage')
 
-@app.route('/buy/<int:id>')
-def buy(id):
-    username = session['username']
-    price = db.getPrice(id)
-    image_name = db.getAllImage(id)
-    flash(db.addTransaction(image_name[0], username, price))
+@app.route('/buy', methods=['GET', 'POST'])
+def buy():
+    if request.method == 'POST':
+        username = session['username']
+        price = db.getPrice(request.form['propertyId'])
+        image_name = db.getAllImage(request.form['propertyId'])
+        meet_date=request.form['meetingDate']
+        flash(db.addTransaction(image_name[0], meet_date, username, price))
     return redirect('/property')
 
 @app.route('/update/<int:id>')

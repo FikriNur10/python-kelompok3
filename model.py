@@ -247,11 +247,11 @@ class Database:
         finally:
             con.close()
             
-    def addTransaction(self, image_name, username, price):
+    def addTransaction(self, image_name, meet_date, username, price,):
         con = Database.connect(self)
         cursor = con.cursor()
         try:
-            cursor.execute('INSERT INTO transactions(image_name, user_name, total_price) VALUES(%s, %s, %s)',(image_name, username, price,))
+            cursor.execute('INSERT INTO transactions(image_name, meet_date, user_name, total_price) VALUES(%s, %s, %s, %s)',(image_name, meet_date, username, price,))
             con.commit()
             return "Transaction successed!"
         except:

@@ -1,140 +1,147 @@
-{% extends 'layout.html' %} {% block content %}
+{% extends 'layout.html' %} 
+{% block content %}
 <!-- Breadcrumbs -->
-<section
-	class="section novi-background breadcrumbs-custom bg-image context-dark"
-	style="
-		background-image: url(https://images.unsplash.com/photo-1541194577687-8c63bf9e7ee3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGRhcmslMjByb29tfGVufDB8fDB8fHww&w=1000&q=80);
-	"
->
-	<div class="breadcrumbs-custom-inner">
-		<div class="container breadcrumbs-custom-container">
-			<div class="breadcrumbs-custom-main">
-				<h6 class="breadcrumbs-custom-subtitle title-decorated">
-					Our Recommendation
-				</h6>
-				<h2 class="text-uppercase breadcrumbs-custom-title">Properties</h2>
-			</div>
-			<ul class="breadcrumbs-custom-path">
-				<li><a href="/">Home</a></li>
-				<li class="active">Properties</li>
-			</ul>
-		</div>
-	</div>
+<section class="section novi-background breadcrumbs-custom bg-image context-dark"
+    style="background-image: url(https://images.unsplash.com/photo-1541194577687-8c63bf9e7ee3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGRhcmslMjByb29tfGVufDB8fDB8fHww&w=1000&q=80);">
+    <div class="breadcrumbs-custom-inner">
+        <div class="container breadcrumbs-custom-container">
+            <div class="breadcrumbs-custom-main">
+                <h6 class="breadcrumbs-custom-subtitle title-decorated">Our Recommendation</h6>
+                <h2 class="text-uppercase breadcrumbs-custom-title">Properties</h2>
+            </div>
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="/">Home</a></li>
+                <li class="active">Properties</li>
+            </ul>
+        </div>
+    </div>
 </section>
 <!-- Start-->
 <section class="section novi-background section-sm section-first">
-	<div class="container">
-		<h3 class="text-uppercase font-weight-bold wow-outer">
-			<span class="wow slideInDown">Popular properties</span>
-		</h3>
-	</div>
-	<div class="container">
-		<!-- Base typography-->
-		<div class="row row-lg-50 row-35 offset-top-2">
-			{% if data|length == 0 %}
-			<b>No Entry Has Been Added</b> <br />
-			{% else %} {% for row in data %}
-		<div class="col-md-6 wow-outer">
-				<!-- Post Modern-->
-				<article class="post-modern wow slideInLeft">
-					<a class="post-modern-media" href="#"
-						><img
-							src="../static/uploads/{{ row['image'] }}"
-							alt=""
-							width="570"
-							height="353"
-					/></a>
-					<h4 class="post-modern-title">
-						<a class="post-modern-title" href="#"
-							>{{row['name']}}</a
-						>
-					</h4>
-					<ul class="post-modern-meta">
-						<li>
-							<a class="button-winona" href="#"
-								>{{row['price']}}/mon</a
-							>
-						</li>
-						<li>{{row['address']}}</li>
-					</ul>
-					<p>{{row['description']}}.</p>
-				</article>
-				<div style="padding: 10px 0px">
-					<a
-                        href="#"
-						class="btn"
-						style="background-color: blue; color: white"
-                        data-toggle="modal" data-target="#scheduleModal"
-						>Buy Now</a
-					>
-				</div>
-			</div>
-			{% endfor %} {% endif %}
-		</div>
-		<!-- end -->
-		<div style="padding: 100px 50px">
-			<h3>What Makes Our 'Top Property This Month' Special?</h3>
-			<div style="padding: 50px 0px">
-				<h5>🌟 Luxury Redefined</h5>
-				<p>
-					Our 'Top Property This Month' showcases the epitome of
-					luxury living. From elegant penthouses with breathtaking
-					city views to secluded beachfront villas with private
-					infinity pools, these properties redefine opulence.
-				</p>
-				<h5>🏡 Prime Locations</h5>
-				<p>
-					Location is everything in real estate, and our featured
-					properties are strategically situated in some of the most
-					coveted neighborhoods and destinations. Whether it's urban
-					living, serene countryside, or a tropical paradise, we have
-					you covered.
-				</p>
-				<h5>💎 Unmatched Features</h5>
-				<p>
-					These properties boast a range of unparalleled features,
-					from smart home technology and eco-friendly design to
-					sprawling gardens and world-class amenities. Each one is a
-					masterpiece in its own right.
-				</p>
-				<h5>🔒 Limited Availability</h5>
-				<p>
-					Our 'Top Property This Month' is a testament to exclusivity,
-					with limited availability. If you're looking to invest in
-					luxury real estate or find your dream home, don't miss the
-					chance to explore these exceptional listings.
-				</p>
-				<h5>📆 Monthly Showcase</h5>
-				<p>
-					Keep coming back every month to discover a fresh selection
-					of remarkable properties. Our commitment to excellence means
-					you'll always find something extraordinary in our 'Top
-					Property This Month' collection.
-				</p>
-			</div>
-		</div>
-	</div>
-</section>
-
-<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="scheduleModalLabel">Schedule a Meeting</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+    <div class="container">
+        <h3 class="text-uppercase font-weight-bold wow-outer">
+            <span class="wow slideInDown">Popular properties</span>
+        </h3>
+    </div>
+    <div class="container">
+        <!-- Base typography-->
+        <div class="row row-lg-50 row-35 offset-top-2">
+            {% if data|length == 0 %}
+            <b>No Entry Has Been Added</b> <br />
+            {% else %} {% for row in data %}
+            <div class="col-md-6 wow-outer">
+                <!-- Post Modern-->
+                <article class="post-modern wow slideInLeft">
+                    <a class="post-modern-media" href="#">
+                        <img src="../static/uploads/{{ row['image'] }}" alt="" width="570" height="353" />
+                    </a>
+                    <h4 class="post-modern-title">
+                        <a class="post-modern-title" href="#">{{row['name']}}</a>
+                    </h4>
+                    <ul class="post-modern-meta">
+                        <li>
+                            <a class="button-winona" href="#">Rp. {{row['price']}}</a>
+                        </li>
+                        <li>{{row['address']}}</li>
+                    </ul>
+                    <p>{{row['description']}}.</p>
+                    <div style="padding: 10px 0px">
+                        <a href="#" class="btn" style="background-color: blue; color: white" data-toggle="modal"
+                            data-target="#scheduleModal" data-property-id="{{row['id']}}">Buy Now</a>
+                    </div>
+                </article>
             </div>
-            <div class="modal-body">
-                <p>Select a date for the meeting</p>
-                <input type="date" id="meetingDate" required class="form-control">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="submitSchedule()">Submit</button>
+            {% endfor %} {% endif %}
+        </div>
+        <!-- end -->
+        <div style="padding: 100px 50px">
+            <h3>What Makes Our 'Top Property This Month' Special?</h3>
+            <div style="padding: 50px 0px">
+                <h5>🌟 Luxury Redefined</h5>
+                <p>Our 'Top Property This Month' showcases the epitome of luxury living. From elegant penthouses with
+                    breathtaking city views to secluded beachfront villas with private infinity pools, these properties
+                    redefine opulence.</p>
+                <h5>🏡 Prime Locations</h5>
+                <p>Location is everything in real estate, and our featured properties are strategically situated in
+                    some of the most coveted neighborhoods and destinations. Whether it's urban living, serene
+                    countryside, or a tropical paradise, we have you covered.</p>
+                <h5>💎 Unmatched Features</h5>
+                <p>These properties boast a range of unparalleled features, from smart home technology and eco-friendly
+                    design to sprawling gardens and world-class amenities. Each one is a masterpiece in its own
+                    right.</p>
+                <h5>🔒 Limited Availability</h5>
+                <p>Our 'Top Property This Month' is a testament to exclusivity, with limited availability. If you're
+                    looking to invest in luxury real estate or find your dream home, don't miss the chance to explore
+                    these exceptional listings.</p>
+                <h5>📆 Monthly Showcase</h5>
+                <p>Keep coming back every month to discover a fresh selection of remarkable properties. Our commitment
+                    to excellence means you'll always find something extraordinary in our 'Top Property This Month'
+                    collection.</p>
             </div>
         </div>
     </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="scheduleForm" action="/buy" method="POST" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="scheduleModalLabel">Schedule a Meeting</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Select a date for the meeting</p>
+                    <input type="date" name="meetingDate" id="meetingDate" required class="form-control">
+                    <input type="text" name="propertyId" id="propertyId" class="form-control" hidden>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="validateDate()">Schedule</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Set tanggal minimum yang bisa dipilih (3 hari dari sekarang)
+        var minDate = new Date();
+        minDate.setDate(minDate.getDate() + 3);
+
+        // Format tanggal minimum sebagai string untuk elemen date picker
+        var minDateString = minDate.toISOString().split('T')[0];
+
+        // Atur atribut min pada elemen date picker
+        $('#meetingDate').attr('min', minDateString);
+    });
+
+    function validateDate() {
+        var selectedDate = new Date(document.getElementById('meetingDate').value);
+        var minDate = new Date();
+        minDate.setDate(minDate.getDate() + 3);
+
+        if (selectedDate < minDate) {
+            alert('Please select a date at least 3 days from now.');
+        } else {
+            // Jika tanggal valid, lanjutkan dengan mengirim formulir
+            document.getElementById('scheduleForm').submit();
+        }
+    }
+
+    $('#scheduleModal').on('show.bs.modal', function (e) {
+        var propertyId = $(e.relatedTarget).data('property-id');
+        $('#propertyId').val(propertyId);
+    });
+</script>
 
 {% endblock %}

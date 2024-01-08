@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2024 at 05:22 PM
+-- Generation Time: Jan 08, 2024 at 09:11 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.0
 
@@ -44,16 +44,9 @@ CREATE TABLE `properties` (
 --
 
 INSERT INTO `properties` (`id`, `name`, `address`, `category_id`, `price`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Villa Mas', 'Jl Budi Indah', 1, 200000, 'rumah ini sangat mahal', NULL, NULL, NULL),
-(2, 'laserjump', 'Jl Alam Sutera', 2, 1000000000, 'RUmah jelek', NULL, NULL, NULL),
-(3, 'laserjump', 'sdafasf', 2, 150000000, 'sdafsadfsadfda', NULL, NULL, NULL),
-(4, 'laserjump', 'asdf', 2, 1500, 're', NULL, NULL, NULL),
-(5, 'qwrewqe', 'qwerwe', 2, 324, 'ewqrwr', NULL, NULL, NULL),
-(6, 'laserjump', 'qwer', 1, 231, 'wer', NULL, NULL, NULL),
-(7, 'Davin', 'safdasdfsa', 1, 345, 'fghhgf', NULL, NULL, NULL),
-(8, 'asdfasd', 'asdffasd', 1, 24312, 'fasf', NULL, NULL, NULL),
-(9, 'laserjump', 'sadf', 2, 2134, 'dsfa', NULL, NULL, NULL),
-(19, 'Davin', 'jl budi indah', 4, 999999, 'asfsfsafsafsdfsdafsadf', '2024-01-08 15:37:06', NULL, NULL);
+(21, 'Villa Tranquil Haven', '123 Serenity Lane, Blissful City', 2, 1000000000, 'Escape to the tranquility of Villa Tranquil Haven, nestled in the heart of Blissful City. This serene retreat offers breathtaking views, modern amenities, and a perfect blend of comfort and elegance.', '2024-01-08 19:51:28', NULL, NULL),
+(22, 'Harborview Residences', '456 Oceanfront Drive, Coastal Haven', 4, 2000000000, 'Harborview Residences, located on the picturesque Coastal Haven, redefine coastal living. Enjoy stunning ocean views, convenient access to the harbor, and a luxurious lifestyle.', '2024-01-08 19:52:50', NULL, NULL),
+(23, 'Meadowside Apartments', '789 Green Meadows Blvd, Nature', 3, 4000000000, 'Discover the beauty of Meadowside Apartments in the heart of Nature\'s Crossing. Surrounded by green meadows, these apartments offer a peaceful retreat with modern conveniences.', '2024-01-08 19:53:37', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -99,8 +92,10 @@ CREATE TABLE `property_galleries` (
 --
 
 INSERT INTO `property_galleries` (`id`, `property_id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(20, 19, '1_F3PttTE_aJbhJ9OIaBRHtg.jpeg', NULL, NULL, NULL),
-(21, 19, '6d7e813e0a48e4a4ac98875cd6391eb2.jpg', NULL, NULL, NULL);
+(24, 22, 'frames-for-your-heart-2d4lAQAlbDA-unsplash.jpg', NULL, NULL, NULL),
+(25, 23, 'r-architecture-T6d96Qrb5MY-unsplash.jpg', NULL, NULL, NULL),
+(26, 23, 'r-architecture-JvQ0Q5IkeMM-unsplash.jpg', NULL, NULL, NULL),
+(27, 21, 'r-architecture-2gDwlIim3Uw-unsplash.jpg', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -112,6 +107,7 @@ CREATE TABLE `transactions` (
   `id` int(50) NOT NULL,
   `image_name` varchar(200) NOT NULL,
   `user_name` varchar(50) NOT NULL,
+  `meet_date` varchar(50) DEFAULT NULL,
   `payment` varchar(100) NOT NULL DEFAULT 'PAY ON THE SPOT',
   `total_price` float NOT NULL,
   `status` varchar(100) NOT NULL DEFAULT 'PENDING',
@@ -123,29 +119,8 @@ CREATE TABLE `transactions` (
 -- Dumping data for table `transactions`
 --
 
-INSERT INTO `transactions` (`id`, `image_name`, `user_name`, `payment`, `total_price`, `status`, `created_at`, `updated_at`) VALUES
-(4, '', 'admin', 'PAY ON THE SPOT', 2134, 'PENDING', '2024-01-07 18:34:40', NULL),
-(5, '1_F3PttTE_aJbhJ9OIaBRHtg.jpeg', 'admin', 'PAY ON THE SPOT', 999999, 'PENDING', '2024-01-08 15:44:16', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `transaction_items`
---
-
-CREATE TABLE `transaction_items` (
-  `id` int(50) NOT NULL,
-  `user_name` varchar(50) NOT NULL,
-  `property_id` int(50) NOT NULL,
-  `transaction_id` int(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `transaction_items`
---
-
-INSERT INTO `transaction_items` (`id`, `user_name`, `property_id`, `transaction_id`) VALUES
-(4, 'admin', 9, 4);
+INSERT INTO `transactions` (`id`, `image_name`, `user_name`, `meet_date`, `payment`, `total_price`, `status`, `created_at`, `updated_at`) VALUES
+(6, 'frames-for-your-heart-2d4lAQAlbDA-unsplash.jpg', 'admin', '2024-01-12', 'PAY ON THE SPOT', 2000000000, 'PENDING', '2024-01-08 19:55:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -198,12 +173,6 @@ ALTER TABLE `transactions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `transaction_items`
---
-ALTER TABLE `transaction_items`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -218,7 +187,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `properties`
 --
 ALTER TABLE `properties`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `property_category`
@@ -230,19 +199,13 @@ ALTER TABLE `property_category`
 -- AUTO_INCREMENT for table `property_galleries`
 --
 ALTER TABLE `property_galleries`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `transaction_items`
---
-ALTER TABLE `transaction_items`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user`
