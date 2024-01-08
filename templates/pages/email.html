@@ -1,0 +1,73 @@
+{% extends 'layout.html'%}
+{% block content %}
+  <!-- about section -->
+
+      <!-- Message -->
+      <section class="content-header">
+        {% for message in get_flashed_messages()%}
+      <div class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          {{ message }}
+      </div>
+        {% endfor%}
+    </section>
+        <!-- Message -->
+
+  <section class="about_section layout_padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="detail-box">
+            <div class="heading_container">
+              <h2>
+                Email
+              </h2>
+            </div>
+
+            <form action="/email" method="POST">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputTanggal">Email User</label>
+                  {% for row in emailuser %}
+                  <input type="email" class="form-control" name='email' value='{{row[1]}}'>
+                  {% endfor %}
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputTanggal">Password</label>
+                  <input type="password" class="form-control" name='password'>
+                </div>               
+              </div>
+              <br/>
+              <div class="form-group">
+                <label for="inputJudul">Email Tujuan</label>
+                <select name='emailkepada'>
+                  <option value= "all" >All</option>
+                  {% for row in alluser %}
+                  <option value= "{{row[1]}}">{{row[1]}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="inputTanggal">Subject</label>
+                <input type="text" class="form-control" name='subject' placeholder="Judul Subject Email">
+              </div>
+              <div class="form-group">
+                <label for="inputTanggal">Isi Email</label>
+                <textarea class="form-control" name='isiemail'></textarea>
+              </div>
+                 
+              <button type="submit" class="btn btn-primary">Save</button>  
+            </form>
+            
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+  <!-- end about section -->
+
+
+{% endblock %}
