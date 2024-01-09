@@ -73,11 +73,21 @@
 						<td>{{row[5]}}</td>
 						<td>{{row[6]}}</td>
 						<td>
-							<div style="padding: 8px 0px">
-								{% if row[5] == 'PENDING' %}
-									<a href="/acctransaksi/{{ row[0] }}" class="btn" style="background-color: green; color: white">ACCEPT</a>
-								{% elif row[5] == 'ON GOING' %}
-									<a href="/acctransaksi/{{ row[0] }}" class="btn" style="background-color: blue; color: white">CONFIRM</a>
+							<div style="padding: 8px 4px">
+								{% if session.role == 'admin' %}
+									{% if row[6] == 'PENDING' %}
+										<a href="/acctransaksi/{{ row[0] }}" class="btn btn-accept" style="background-color: green; color: white">ACCEPT</a>
+										<a href="/rejecttransaksi/{{ row[0] }}" class="btn btn-reject" style="background-color: red; color: white">REJECT</a>
+									{% elif row[6] == 'ON MEET' %}
+										<a href="/acctransaksi/{{ row[0] }}" class="btn btn-inquiry" style="background-color: blue; color: white">INQUIRY</a>
+									{% elif row[6] == 'IN PAYMENT' %}
+										<a href="/acctransaksi/{{ row[0] }}" class="btn btn-acc-payment" style="background-color: blue; color: white">ACC PAYMENT</a>
+									{% endif %}
+								{% else %}    
+									{% if row[6] == 'INQUIRY' %}
+										<a href="/acctransaksi/{{ row[0] }}" class="btn btn-confirm" style="background-color: blue; color: white">CONFIRM</a>
+										<a href="/rejecttransaksi/{{ row[0] }}" class="btn btn-reject" style="background-color: red; color: white">REJECT</a>
+									{% endif %}
 								{% endif %}
 							</div>
 						</td>

@@ -1183,6 +1183,7 @@ p.box-indigo-subtitle .box-indigo-mark {
 	padding: 30px;
 }
 
+
 .box-promo-dummy {
 	visibility: hidden;
 	opacity: 0;
@@ -17805,4 +17806,29 @@ html[data-x-mode]:not(.lt-ie10) .not-animated {
 }
 .pb-80{
 	padding-bottom: 80px;
+}
+
+.btn {
+    margin: 4px;
+    padding: 8px;
+}
+
+.btn-accept {
+    /* tambahkan gaya sesuai kebutuhan Anda */
+}
+
+.btn-reject {
+    /* tambahkan gaya sesuai kebutuhan Anda */
+}
+
+.btn-inquiry {
+    /* tambahkan gaya sesuai kebutuhan Anda */
+}
+
+.btn-acc-payment {
+    /* tambahkan gaya sesuai kebutuhan Anda */
+}
+
+.btn-confirm {
+    /* tambahkan gaya sesuai kebutuhan Anda */
 }
