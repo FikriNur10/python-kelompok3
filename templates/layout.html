@@ -112,10 +112,11 @@
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                           {% if session.role == 'admin' %}
                           <a class="dropdown-item" href="/insert">Insert</a>
-                          <a class="dropdown-item" href="/manage">Manage</a>
+                          <a class="dropdown-item" href="/manage">Property</a>
                           <a class="dropdown-item" href="/email">Email</a>
-                          <a class="dropdown-item" href="/manageuser">Manageuser</a>
+                          <a class="dropdown-item" href="/manageuser">User</a>
                           {% endif %}
+                          <a class="dropdown-item" href="/transaction">History</a>
                           <a class="dropdown-item" href="/logout">Logout</a>
                       </div>
                     </div>
@@ -155,23 +156,6 @@
                       {% endif %}
                       <a class="rd-nav-link" href="/property">Property</a>
                     </li>
-
-                    {% if transactionActive == True %}
-                    <li class="rd-nav-item active">{% else %}</li>
-
-                    <li class="rd-nav-item">
-                      {% endif %}
-                      <a class="rd-nav-link" href="/transaction">Transaction</a>
-                    </li>
-
-                    {% if PDFActive == True %}
-                    <li class="rd-nav-item active">{% else %}</li>
-
-                    <li class="rd-nav-item">
-                      {% endif %}
-                      <a class="rd-nav-link" href="/pdf">PDF</a>
-                    </li>
-
 
                     {% if contactActive == True %}
                     <li class="rd-nav-item active">{% else %}</li>
@@ -285,7 +269,7 @@
                 <ul class="list-nav">
                   <li><a href="/">Home</a></li>
                   <li><a href="/about">About</a></li>
-                  <li><a href="/table">Table</a></li>
+                  <li><a href="/transaction">Table</a></li>
                   <li><a href="/contact">Contacts</a></li>
                 </ul>
               </div>

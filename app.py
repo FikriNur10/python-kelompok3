@@ -102,7 +102,7 @@ def property():
 @app.route('/transaction')
 def transaction():
   data = db.readtransaction(None)
-  return render_template('/pages/transaction.html', transactionActive=True, data=data)
+  return render_template('/pages/transaction.html', data=data)
 
 # admin
 @app.route('/manage')

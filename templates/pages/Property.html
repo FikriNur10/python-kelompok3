@@ -114,26 +114,22 @@
 
 <script>
     $(document).ready(function () {
-        // Set tanggal minimum yang bisa dipilih (3 hari dari sekarang)
         var minDate = new Date();
         minDate.setDate(minDate.getDate() + 3);
 
-        // Format tanggal minimum sebagai string untuk elemen date picker
         var minDateString = minDate.toISOString().split('T')[0];
 
-        // Atur atribut min pada elemen date picker
         $('#meetingDate').attr('min', minDateString);
     });
 
     function validateDate() {
         var selectedDate = new Date(document.getElementById('meetingDate').value);
         var minDate = new Date();
-        minDate.setDate(minDate.getDate() + 3);
+        minDate.setDate(minDate.getDate() + 2);
 
         if (selectedDate < minDate) {
             alert('Please select a date at least 3 days from now.');
         } else {
-            // Jika tanggal valid, lanjutkan dengan mengirim formulir
             document.getElementById('scheduleForm').submit();
         }
     }
