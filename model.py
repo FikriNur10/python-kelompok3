@@ -273,3 +273,31 @@ class Database:
             return ()
         finally:
             con.close()
+            
+    def update_status_transaction(self, id, new_status):
+        con = self.connect()
+        cursor = con.cursor()
+        try:
+            cursor.execute('UPDATE transactions SET status = %s WHERE id = %s', (new_status, id))
+            con.commit()
+            return True
+        except Exception as e:
+            print(f"Error in update_status_transaction: {e}")
+            con.rollback()
+            return False
+        finally:
+            con.close()
+    
+    def read_transaction_by_id(self, id):
+        con = self.connect()
+        cursor = con.cursor()
+        try:
+            cursor.execute('SELECT * FROM transactions WHERE id = %s', (id,))
+            data = cursor.fetchone()
+            print(f"Data from read_transaction_by_id: {data}")
+            return data
+        except Exception as e:
+            print(f"Error in read_transaction_by_id: {e}")
+            return None
+        finally:
+            con.close()

@@ -49,6 +49,7 @@
 						<th scope="col">Payment</th>
 						<th scope="col">Total Price</th>
 						<th scope="col">Status</th>
+						<th scope="col">Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -69,6 +70,15 @@
 						<td>{{row[3]}}</td>
 						<td>{{row[4]}}</td>
 						<td>{{row[5]}}</td>
+						<td>
+							<div style="padding: 8px 0px">
+								{% if row[5] == 'PENDING' %}
+									<a href="/acctransaksi/{{ row[0] }}" class="btn" style="background-color: green; color: white">ACCEPT</a>
+								{% elif row[5] == 'ON GOING' %}
+									<a href="/acctransaksi/{{ row[0] }}" class="btn" style="background-color: blue; color: white">CONFIRM</a>
+								{% endif %}
+							</div>
+						</td>
 					</tr>
 				</tbody>
 				{% endfor %} {% endif %}
