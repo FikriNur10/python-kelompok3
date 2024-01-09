@@ -259,5 +259,27 @@ def pdf():
     response.headers['Content-Disposition'] = 'attachment; filename=report.pdf'
     return response
 
+@app.route('/acctransaksi/<int:id>')
+def acctransaksi(id):
+    data = db.readtransaction(id)
+    if data:
+        current_status = data[0][5]
+
+        if current_status == 'PENDING':
+            new_status = 'ON GOING'
+        elif current_status == 'ON GOING':
+            new_status = 'COMPLETED'
+        else:
+            return redirect('/transaction')
+
+        if db.update_status_transaction(id, new_status):
+            flash(f'Status transaksi {id} berhasil diubah menjadi {new_status}')
+        else:
+            flash(f'Gagal mengubah status transaksi {id}')
+    else:
+        flash(f'Transaksi dengan ID {id} tidak ditemukan')
+
+    return redirect('/transaction')
+  
 if __name__ == '__main__':
     app.run(debug = True)
