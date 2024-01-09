@@ -280,6 +280,22 @@ class Database:
             return ()
         finally:
             con.close()
+
+    def readcategory(self, category):
+        con = Database.connect(self)
+        cursor = con.cursor()
+        try:
+            if category == '':
+                cursor.execute('SELECT * FROM transactions')
+            else:
+                cursor.execute('SELECT * FROM transactions WHERE category_id = %s', (category,))
+            data = cursor.fetchall()
+            print(f"Data from readtransaction: {data}")
+            return data
+        except:
+            return ()
+        finally:
+            con.close()
             
     def update_status_transaction(self, id, new_status):
         con = self.connect()

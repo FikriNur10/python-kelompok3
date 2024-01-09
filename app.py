@@ -250,11 +250,16 @@ def email():
 
 @app.route('/report', methods=['GET', 'POST'])
 def report():
+  data = db.option()
   if request.method == 'POST' :
       try:
           start_date = request.form['startdate']
           end_date = request.form['enddate']
-          data_from_db = db.readdate(start_date, end_date)
+          category = request.form['category_id']
+          if start_date != '' or end_date != '':
+              data_from_db = db.readdate(start_date, end_date)
+          else:
+              data_from_db = db.readcategory(category)
           rendered = render_template('/pages/pdftemplate.html', data_from_db=data_from_db)
           config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltox\\bin\\wkhtmltopdf.exe')
           pdf = pdfkit.from_string(rendered, configuration=config)
@@ -265,7 +270,7 @@ def report():
       except Exception as e:
           flash('Generate Report Failed')
           return redirect('/report')
-  return render_template('/pages/pdf.html')
+  return render_template('/pages/pdf.html', data=data)
 
 @app.route('/acctransaksi/<int:id>')
 def acctransaksi(id):
