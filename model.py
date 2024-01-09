@@ -236,22 +236,23 @@ class Database:
         finally:
             con.close()
 
-    def getPrice(self, id):
+    def getPropertiesData(self, id):
         con = Database.connect(self)
         cursor = con.cursor()
         try:
-            cursor.execute('SELECT price FROM properties WHERE id = %s', (id,))
+            cursor.execute('SELECT * FROM properties WHERE id = %s', (id,))
             return [item[0] for item in cursor.fetchall()]
         except:
             return []
         finally:
             con.close()
             
-    def addTransaction(self, image_name, meet_date, username, price,):
+    def addTransaction(self, image_name, meet_date, username, property,):
         con = Database.connect(self)
         cursor = con.cursor()
         try:
-            cursor.execute('INSERT INTO transactions(image_name, meet_date, user_name, total_price) VALUES(%s, %s, %s, %s)',(image_name, meet_date, username, price,))
+            cursor.execute('INSERT INTO transactions(image_name, meet_date, user_name, property_id, property_name, property_address, category_id, total_price) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)',
+                           (image_name, meet_date, username, property[0][0], property[0][1], property[0][2], property[0][3], property[0][4],))
             con.commit()
             return "Transaction successed!"
         except:

@@ -167,10 +167,10 @@ def hapus(id):
 def buy():
     if request.method == 'POST':
         username = session['username']
-        price = db.getPrice(request.form['propertyId'])
+        property = db.read(request.form['propertyId'])
         image_name = db.getAllImage(request.form['propertyId'])
         meet_date=request.form['meetingDate']
-        flash(db.addTransaction(image_name[0], meet_date, username, price))
+        flash(db.addTransaction(image_name[0], meet_date, username, property))
     return redirect('/property')
 
 @app.route('/update/<int:id>')

@@ -17809,26 +17809,34 @@ html[data-x-mode]:not(.lt-ie10) .not-animated {
 }
 
 .btn {
-    margin: 4px;
     padding: 8px;
+	width: 100%;
 }
 
 .btn-accept {
-    /* tambahkan gaya sesuai kebutuhan Anda */
+	border-radius: 0;
+	border-top-left-radius: 10px ;
+	border-top-right-radius: 10px;
 }
 
 .btn-reject {
-    /* tambahkan gaya sesuai kebutuhan Anda */
-}
-
-.btn-inquiry {
-    /* tambahkan gaya sesuai kebutuhan Anda */
-}
-
-.btn-acc-payment {
-    /* tambahkan gaya sesuai kebutuhan Anda */
+	border-radius: 0;
+	border-bottom-left-radius: 10px ;
+	border-bottom-right-radius: 10px;
 }
 
 .btn-confirm {
-    /* tambahkan gaya sesuai kebutuhan Anda */
+	border-radius: 0;
+	border-top-left-radius: 10px ;
+	border-top-right-radius: 10px;
+}
+
+table {
+	width: 100%;
+}
+
+/* Apply white-space: nowrap; only to specific columns */
+th:not(:last-child),
+td:not(:last-child) {
+	white-space: nowrap;
 }

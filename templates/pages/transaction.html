@@ -45,7 +45,9 @@
 					<tr>
 						<th scope="col">No</th>
 						<th scope="col">Photo</th>
-						<th scope="col">Id User</th>
+						<th scope="col">Property Name</th>
+						<th scope="col">Address</th>
+						<th scope="col">Buyer Id</th>
 						<th scope="col">Meeting Date</th>
 						<th scope="col">Payment</th>
 						<th scope="col">Total Price</th>
@@ -67,26 +69,28 @@
 								class="img-table"
 							/>
 						</td>
-						<td>{{row[2]}}</td>
-						<td>{{row[3]}}</td>
 						<td>{{row[4]}}</td>
 						<td>{{row[5]}}</td>
-						<td>{{row[6]}}</td>
+						<td>{{row[2]}}</td>
+						<td>{{row[7]}}</td>
+						<td>{{row[8]}}</td>
+						<td>{{row[9]}}</td>
+						<td>{{row[10]}}</td>
 						<td>
 							<div style="padding: 8px 4px">
 								{% if session.role == 'admin' %}
-									{% if row[6] == 'PENDING' %}
-										<a href="/acctransaksi/{{ row[0] }}" class="btn btn-accept" style="background-color: green; color: white">ACCEPT</a>
+									{% if row[10] == 'PENDING' %}
+										<a href="/acctransaksi/{{ row[0] }}" class="btn btn-accept" style="background-color: blue; color: white">ACCEPT</a>
 										<a href="/rejecttransaksi/{{ row[0] }}" class="btn btn-reject" style="background-color: red; color: white">REJECT</a>
-									{% elif row[6] == 'ON MEET' %}
+									{% elif row[10] == 'ON MEET' %}
 										<a href="/acctransaksi/{{ row[0] }}" class="btn btn-inquiry" style="background-color: blue; color: white">INQUIRY</a>
-									{% elif row[6] == 'IN PAYMENT' %}
+									{% elif row[10] == 'IN PAYMENT' %}
 										<a href="/acctransaksi/{{ row[0] }}" class="btn btn-acc-payment" style="background-color: blue; color: white">ACC PAYMENT</a>
 									{% endif %}
 								{% else %}    
-									{% if row[6] == 'INQUIRY' %}
+									{% if row[10] == 'INQUIRY' %}
 										<a href="/acctransaksi/{{ row[0] }}" class="btn btn-confirm" style="background-color: blue; color: white">CONFIRM</a>
-										<a href="/rejecttransaksi/{{ row[0] }}" class="btn btn-reject" style="background-color: red; color: white">REJECT</a>
+										<a href="/rejecttransaksi/{{ row[0] }}" class="btn btn-reject" style="background-color: red; color: white">CANCEL</a>
 									{% endif %}
 								{% endif %}
 							</div>
