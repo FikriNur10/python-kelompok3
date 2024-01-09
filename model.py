@@ -255,36 +255,36 @@ class Database:
         cursor = con.cursor()
         try:
             if role == "admin":
-             if startdate == '' and enddate == '' and category == '':
+             if startdate == '' and enddate == '' and category == '0':
                  cursor.execute('SELECT * FROM transactions')
-             elif startdate != '' and enddate == '' and category == '':
+             elif startdate != '' and enddate == '' and category == '0':
                  cursor.execute('SELECT * FROM transactions WHERE created_at LIKE %s', ('%' + startdate + '%',))
-             elif startdate == '' and enddate != '' and category == '':
+             elif startdate == '' and enddate != '' and category == '0':
                  cursor.execute('SELECT * FROM transactions WHERE created_at LIKE %s', ('%' + enddate + '%',))
-             elif startdate == '' and enddate == '' and category != '':
+             elif startdate == '' and enddate == '' and category != '0':
                  cursor.execute('SELECT * FROM transactions WHERE category_id = %s', (category,))
-             elif startdate != '' and enddate != '' and category == '':
+             elif startdate != '' and enddate != '' and category == '0':
                  cursor.execute('SELECT * FROM transactions WHERE created_at BETWEEN %s AND %s', (startdate, enddate,))
-             elif startdate == '' and enddate != '' and category != '':
+             elif startdate == '' and enddate != '' and category != '0':
                  cursor.execute('SELECT * FROM transactions WHERE category_id = %s AND created_at LIKE %s', (category, enddate))
-             elif startdate != '' and enddate == '' and category != '':
+             elif startdate != '' and enddate == '' and category != '0':
                  cursor.execute('SELECT * FROM transactions WHERE category_id = %s AND created_at LIKE %s', (category, startdate))
              else:
                  cursor.execute('SELECT * FROM transactions WHERE created_at BETWEEN %s AND %s AND category_id = %s', (startdate, enddate, category))
             else:
-             if startdate == '' and enddate == '' and category == '':
+             if startdate == '' and enddate == '' and category == '0':
                  cursor.execute('SELECT * FROM transactions WHERE user_name = %s', (username,))
-             elif startdate != '' and enddate == '' and category == '':
+             elif startdate != '' and enddate == '' and category == '0':
                  cursor.execute('SELECT * FROM transactions WHERE created_at LIKE %s AND user_name = %s', ('%' + startdate + '%', username,))
-             elif startdate == '' and enddate != '' and category == '':
+             elif startdate == '' and enddate != '' and category == '0':
                  cursor.execute('SELECT * FROM transactions WHERE created_at LIKE %s AND user_name = %s', ('%' + enddate + '%', username,))
-             elif startdate == '' and enddate == '' and category != '':
+             elif startdate == '' and enddate == '' and category != '0':
                  cursor.execute('SELECT * FROM transactions WHERE category_id = %s AND user_name = %s', (category, username,))
-             elif startdate != '' and enddate != '' and category == '':
+             elif startdate != '' and enddate != '' and category == '0':
                  cursor.execute('SELECT * FROM transactions WHERE created_at BETWEEN %s AND %s AND user_name = %s', (startdate, enddate, username,))
-             elif startdate == '' and enddate != '' and category != '':
+             elif startdate == '' and enddate != '' and category != '0':
                  cursor.execute('SELECT * FROM transactions WHERE category_id = %s AND created_at LIKE %s AND user_name = %s', (category, enddate, username,))
-             elif startdate != '' and enddate == '' and category != '':
+             elif startdate != '' and enddate == '' and category != '0':
                  cursor.execute('SELECT * FROM transactions WHERE category_id = %s AND created_at LIKE %s AND user_name = %s', (category, startdate, username,))
              else:
                  cursor.execute('SELECT * FROM transactions WHERE created_at BETWEEN %s AND %s AND category_id = %s AND user_name = %s', (startdate, enddate, category, username,))

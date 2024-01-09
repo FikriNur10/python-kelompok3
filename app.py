@@ -270,6 +270,7 @@ def email():
 
 @app.route('/report', methods=['GET', 'POST'])
 def report():
+    data = db.option()
     if request.method == 'POST':
         try:
             start_date = request.form['startdate']
@@ -290,7 +291,7 @@ def report():
             flash('Generate Report Failed')
             return redirect('/report')
 
-    return render_template('/pages/pdf.html')
+    return render_template('/pages/pdf.html', data=data)
 
 @app.route('/acctransaksi/<int:id>')
 def acctransaksi(id):
