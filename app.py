@@ -257,7 +257,8 @@ def report():
         try:
             start_date = request.form['startdate']
             end_date = request.form['enddate']
-            data_from_db = db.readdate(start_date, end_date, session['role'], session['username'])
+            category = request.form['category_id']
+            data_from_db = db.readdate(start_date, end_date, session['role'], session['username'], category)
             if not data_from_db:
                 flash('Cannot generate PDF for empty list.')
                 return redirect('/report')
