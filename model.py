@@ -86,7 +86,7 @@ class Database:
         con = self.connect()
         cursor = con.cursor()
         try:
-            if id is None:
+            if username is None:
                 cursor.execute('SELECT * FROM transactions')
             else:
                 cursor.execute('SELECT * FROM transactions where user_name = %s', (username,))
