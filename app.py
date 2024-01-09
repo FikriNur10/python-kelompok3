@@ -217,8 +217,8 @@ def update():
 
 @app.route('/email', methods=['GET', 'POST'])
 def email():
-    alluser = db.readuser(None)
-    emailuser = db.readuser(session['username'])
+    alluser = db.readaccount(None)
+    emailuser = db.readaccount(session['username'])
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -271,7 +271,7 @@ def report():
 def acctransaksi(id):
     data = db.readtransaction(id)
     if data:
-        current_status = data[0][6]
+        current_status = data[0][10]
 
         if current_status == 'PENDING':
             new_status = 'ON MEET'

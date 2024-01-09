@@ -1,13 +1,38 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <table border='1' class="table table-bordered">
+  <head>
+    <title>Transaction Report</title>
+    <meta name="viewport" content="width=device-width height=device-height initial-scale=1.0 maximum-scale=1.0 user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Work+Sans:300,400,500,700,800%7CPoppins:300,400,700" />
+    <link rel="stylesheet" href="/static/css/bootstrap.css" />
+    <link rel="stylesheet" href="/static/css/fonts.css" />
+    <link rel="stylesheet" href="/static/css/style.css" id="main-styles-link" />
+    <style>
+      .ie-panel {
+        display: none;
+        background: #212121;
+        padding: 10px 0;
+        box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.3);
+        clear: both;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      html.ie-10 .ie-panel,
+      html.lt-ie-10 .ie-panel {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      
+      <table border='1' class="table table-bordered">
         <thead>
          <tr class="table-primary">
             <th class="text-center">ID</th>   
@@ -39,5 +64,388 @@
     
         </tbody>
        </table>
+    </div>
+    <div class="snackbars" id="form-output-global"></div>
+    <script src="/static/js/core.min.js"></script>
+    <script src="/static/js/script.js"></script>
+  </body>
+</html> -->
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Report</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        img {
+            max-width: 50px;
+            max-height: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Transaction Report</h2>
+
+<table>
+    <thead>
+        <tr class="table-primary">
+          <th class="text-center">ID</th>   
+          <th class="text-center">PHOTO</th>         
+          <th class="text-center">ID_USER</th>
+          <th class="text-center">PAYMENT</th>         
+          <th class="text-center">TOTAL PRICE</th>
+          <th class="text-center">STATUS</th>    
+          <th class="text-center">DATE</th>      
+       </tr>
+    </thead>
+    <tbody>
+        {% if data_from_db|length == 0 %}
+          <b>No Entry Has Been Added</b> <br/>
+        {% else %}
+          {% for row in data_from_db %}
+        <tr>
+          <td class="text-center"><b>{{row[0]}}</b></td>   
+          <td class="text-center"><b>{{row[1]}}</b></td>   
+          <td class="text-center"><b>{{row[2]}}</b></td>
+          <td class="text-center"><b>{{row[3]}}</b></td>   
+          <td class="text-center"><b>{{row[4]}}</b></td>
+          <td class="text-center"><b>{{row[5]}}</b></td>
+          <td class="text-center"><b>{{row[6]}}</b></td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
+
 </body>
-</html>
+</html> -->
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Invoice Template</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+
+    body {
+      font-size: 16px;
+      margin: 20px;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    table tr td {
+      padding: 0;
+    }
+    
+    table tr td:last-child {
+      text-align: right;
+    }
+    
+    .bold {
+      font-weight: bold;
+    }
+    
+    .right {
+      text-align: right;
+    }
+    
+    .large {
+      font-size: 1.75em;
+    }
+    
+    .total {
+      font-weight: bold;
+      color: #fb7578;
+    }
+    
+    .logo-container {
+      margin: 20px 0 70px 0;
+    }
+    
+    .invoice-info-container {
+      font-size: 0.875em;
+    }
+    .invoice-info-container td {
+      padding: 4px 0;
+    }
+    
+    .client-name {
+      font-size: 1.5em;
+      vertical-align: top;
+    }
+    
+    .line-items-container {
+      margin: 70px 0;
+      font-size: 0.875em;
+    }
+    
+    .line-items-container th {
+      text-align: left;
+      color: #999;
+      border-bottom: 2px solid #ddd;
+      padding: 10px 0 15px 0;
+      font-size: 0.75em;
+      text-transform: uppercase;
+    }
+    
+    .line-items-container th:last-child {
+      text-align: right;
+    }
+    
+    .line-items-container td {
+      padding: 15px 0;
+    }
+    
+    .line-items-container tbody tr:first-child td {
+      padding-top: 25px;
+    }
+    
+    .line-items-container.has-bottom-border tbody tr:last-child td {
+      padding-bottom: 25px;
+      border-bottom: 2px solid #ddd;
+    }
+    
+    .line-items-container.has-bottom-border {
+      margin-bottom: 0;
+    }
+    
+    .line-items-container th.heading-quantity {
+      width: 50px;
+    }
+    .line-items-container th.heading-price {
+      text-align: right;
+      width: 100px;
+    }
+    .line-items-container th.heading-subtotal {
+      width: 100px;
+    }
+    
+    .payment-info {
+      width: 38%;
+      font-size: 0.75em;
+      line-height: 1.5;
+    }
+    
+    .footer {
+      margin-top: 100px;
+    }
+    
+    .footer-thanks {
+      font-size: 1.125em;
+    }
+    
+    .footer-thanks img {
+      display: inline-block;
+      position: relative;
+      top: 1px;
+      width: 16px;
+      margin-right: 4px;
+    }
+    
+    .footer-info {
+      float: right;
+      margin-top: 5px;
+      font-size: 0.75em;
+      color: #ccc;
+    }
+    
+    .footer-info span {
+      padding: 0 5px;
+      color: black;
+    }
+    
+    .footer-info span:last-child {
+      padding-right: 0;
+    }
+    
+    .page-container {
+      display: none;
+    }
+
+.footer {
+  margin-top: 30px;
+}
+
+.footer-info {
+  float: none;
+  position: running(footer);
+  margin-top: -25px;
+}
+
+.page-container {
+  display: block;
+  position: running(pageContainer);
+  margin-top: -25px;
+  font-size: 12px;
+  text-align: right;
+  color: #999;
+}
+
+.page-container .page::after {
+  content: counter(page);
+}
+
+.page-container .pages::after {
+  content: counter(pages);
+}
+
+
+@page {
+  @bottom-right {
+    content: element(pageContainer);
+  }
+  @bottom-left {
+    content: element(footer);
+  }
+}
+  </style>
+</head>
+<body>
+
+<div class="web-container">  
+  <table class="invoice-info-container">
+    <tr>
+      <td rowspan="2" class="client-name">
+        {{session.username}}
+      </td>
+      <td>
+        Anvil Co
+      </td>
+    </tr>
+    <tr>
+      <td>
+        123 Main Street
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Invoice Date: <strong>May 24th, 2024</strong>
+      </td>
+      <td>
+        San Francisco CA, 94103
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Invoice No: <strong>12345</strong>
+      </td>
+      <td>
+        hello@useanvil.com
+      </td>
+    </tr>
+  </table>
+  
+  
+  <!-- <table class="line-items-container">
+    <thead>
+      <tr>
+        <th class="heading-quantity">Qty</th>
+        <th class="heading-description">Description</th>
+        <th class="heading-price">Price</th>
+        <th class="heading-subtotal">Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2</td>
+        <td>Blue large widgets</td>
+        <td class="right">$15.00</td>
+        <td class="bold">$30.00</td>
+      </tr>
+    </tbody>
+  </table> -->
+  <table class="line-items-container">
+      <thead>
+          <tr class="table-primary">   
+            <th class="text-center">PHOTO</th>         
+            <th class="text-center">USERNAME</th>
+            <th class="text-center">PROPERTY NAME</th>
+            <th class="text-center">PROPERTY ADDRESS</th>
+            <th class="text-center">PAYMENT</th>         
+            <th class="text-center">TOTAL PRICE</th>
+            <th class="text-center">STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% if data_from_db|length == 0 %}
+            <b>No Entry Has Been Added</b> <br/>
+          {% else %}
+            {% for row in data_from_db %}
+          <tr>
+            <td class="text-center"><b>{{row[1]}}</b></td>   
+            <td class="text-center"><b>{{row[2]}}</b></td>   
+            <td class="text-center"><b>{{row[4]}}</b></td>
+            <td class="text-center"><b>{{row[5]}}</b></td>   
+            <td class="text-center"><b>{{row[8]}}</b></td>
+            <td class="text-center"><b>{{row[9]}}</b></td>
+            <td class="text-center bold"><b>{{row[10]}}</b></td>
+          </tr>
+          {% endfor %}
+          {% endif %}
+      </tbody>
+  </table>
+  
+  
+  <table class="line-items-container has-bottom-border">
+    <thead>
+      <tr>
+        <th>Payment Info</th>
+        <th>Due By</th>
+        <th>Total Due</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="payment-info">
+          <div>
+            Account No: <strong>123567744</strong>
+          </div>
+          <div>
+            Routing No: <strong>120000547</strong>
+          </div>
+        </td>
+        <td class="large">May 30th, 2024</td>
+        <td class="large total">$105.00</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div class="footer">
+    <div class="footer-info">
+      <span>hello@useanvil.com</span> |
+      <span>555 444 6666</span> |
+      <span>useanvil.com</span>
+    </div>
+    <div class="footer-thanks">
+      <img src="https://github.com/anvilco/html-pdf-invoice-template/raw/main/img/heart.png" alt="heart">
+      <span>Thank you!</span>
+    </div>
+  </div>
+
+</div>
+
+
+</body></html>
