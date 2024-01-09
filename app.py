@@ -14,6 +14,8 @@ app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
 db = Database()
 
 @app.route('/')
@@ -60,6 +62,9 @@ def register():
       return redirect('/register')
   return render_template('/pages/register.html', registerActive=True)
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @app.route('/insert', methods=['GET', 'POST'])
 def insert():
     data = db.option()
@@ -79,10 +84,18 @@ def insert():
                 inserted_id = result[1]
                 # Insert data gambar untuk setiap file yang diunggah
                 for file in files:
-                    filename = secure_filename(file.filename)
-                    directory = folder_upload+filename
-                    file.save(directory)
-                    db.insertImage(inserted_id, filename)
+                    # filename = secure_filename(file.filename)
+                    # directory = folder_upload+filename
+                    # file.save(directory)
+                    # db.insertImage(inserted_id, filename)
+                    if file and allowed_file(file.filename):
+                        filename = secure_filename(file.filename)
+                        directory = folder_upload + filename
+                        file.save(directory)
+                        db.insertImage(inserted_id, filename)
+                    else:
+                        flash('File ekstensi tidak diizinkan. Harap unggah file dengan ekstensi .jpg, .jpeg, atau .png.')
+                        return redirect('/insert')
 
                 flash('Data Berhasil Disimpan')
                 return redirect('/manage')
@@ -202,10 +215,14 @@ def update():
             db.deleteAllImage(id)
 
             for file in files:
-                filename = secure_filename(file.filename)
-                directory = folder_upload+filename
-                file.save(directory)
-                db.insertImage(id, filename)
+                if file and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    directory = folder_upload + filename
+                    file.save(directory)
+                    db.insertImage(id, filename)
+                else:
+                    flash('File ekstensi tidak diizinkan. Harap unggah file dengan ekstensi .jpg, .jpeg, atau .png.')
+                    return redirect('/update')
                 
             flash('Data Berhasil Diubah')
             session.pop('id', None)
