@@ -295,7 +295,7 @@ def report():
 
 @app.route('/acctransaksi/<int:id>')
 def acctransaksi(id):
-    data = db.readtransaction(id)
+    data = db.read_transaction_by_id(id)
     if data:
         current_status = data[0][10]
 

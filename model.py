@@ -101,6 +101,20 @@ class Database:
         finally:
             con.close()
 
+    def read_transaction_by_id(self, id):
+        con = self.connect()
+        cursor = con.cursor()
+        try:
+            cursor.execute('SELECT * FROM transactions WHERE id = %s', (id,))
+            data = cursor.fetchall()
+            print(f"Data from read_transaction_by_id: {data}")
+            return data
+        except Exception as e:
+            print(f"Error in read_transaction_by_id: {e}")
+            return ()
+        finally:
+            con.close()
+    
     def adduser(self, data):
         con = Database.connect(self)
         cursor = con.cursor()
