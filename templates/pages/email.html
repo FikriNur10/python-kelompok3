@@ -41,12 +41,12 @@
 							<span class="wow slideInDown">Email</span>
 						</h3>
 						<!-- RD Mailform-->
-						<form class="rd-form rd-mailform" action="/email" method="POST">
+						<form action="/email" method="POST">
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputTanggal">User Email</label>
                   {% for row in emailuser %}
-                  <input type="email" class="form-control" name='email' value='{{row[1]}}'>
+                  <input type="email" class="form-control" name='email' value='{{row[2]}}'>
                   {% endfor %}
                 </div>
                 <div class="form-group col-md-6">
@@ -60,7 +60,7 @@
                 <select name='emailkepada'>
                   <option value= "all" >All</option>
                   {% for row in alluser %}
-                  <option value= "{{row[1]}}">{{row[1]}}</option>
+                  <option value= "{{row[2]}}">{{row[2]}}</option>
                   {% endfor %}
                 </select>
               </div>
