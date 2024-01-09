@@ -82,14 +82,14 @@ class Database:
             con.rollback()
             return 'Data Gagal Disimpan'
             
-    def readtransaction(self, id):
+    def readtransaction(self, username):
         con = self.connect()
         cursor = con.cursor()
         try:
             if id is None:
                 cursor.execute('SELECT * FROM transactions')
             else:
-                cursor.execute('SELECT * FROM transactions where id = %s', (id,))
+                cursor.execute('SELECT * FROM transactions where user_name = %s', (username,))
             
             data = cursor.fetchall()
             print(f"Data from readtransaction: {data}")
@@ -261,18 +261,28 @@ class Database:
         finally:
             con.close()
 
-    def readdate(self, startdate, enddate):
+    def readdate(self, startdate, enddate, role, username):
         con = Database.connect(self)
         cursor = con.cursor()
         try:
-            if startdate == '' and enddate == '':
-                cursor.execute('SELECT * FROM transactions')
-            elif startdate != '' and enddate == '':
-                cursor.execute('SELECT * FROM transactions WHERE created_at LIKE %s', ('%' + startdate + '%',))
-            elif startdate == '' and enddate != '':
-                cursor.execute('SELECT * FROM transactions WHERE created_at LIKE %s', ('%' + enddate + '%',))
+            if role == "admin":
+             if startdate == '' and enddate == '':
+                 cursor.execute('SELECT * FROM transactions')
+             elif startdate != '' and enddate == '':
+                 cursor.execute('SELECT * FROM transactions WHERE created_at LIKE %s', ('%' + startdate + '%',))
+             elif startdate == '' and enddate != '':
+                 cursor.execute('SELECT * FROM transactions WHERE created_at LIKE %s', ('%' + enddate + '%',))
+             else:
+                 cursor.execute('SELECT * FROM transactions WHERE created_at BETWEEN %s AND %s', (startdate, enddate,))
             else:
-                cursor.execute('SELECT * FROM transactions WHERE created_at BETWEEN %s AND %s', (startdate, enddate,))
+             if startdate == '' and enddate == '':
+                 cursor.execute('SELECT * FROM transactions WHERE user_name = %s', (username,))
+             elif startdate != '' and enddate == '':
+                 cursor.execute('SELECT * FROM transactions WHERE created_at LIKE %s AND user_name = %s', ('%' + startdate + '%', username,))
+             elif startdate == '' and enddate != '':
+                 cursor.execute('SELECT * FROM transactions WHERE created_at LIKE %s AND user_name = %s', ('%' + enddate + '%', username,))
+             else:
+                 cursor.execute('SELECT * FROM transactions WHERE created_at BETWEEN %s AND %s AND user_name = %s', (startdate, enddate, username,))
             data = cursor.fetchall()
             print(f"Data from readtransaction: {data}")
             return data

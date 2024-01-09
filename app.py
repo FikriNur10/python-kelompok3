@@ -103,8 +103,11 @@ def property():
 
 @app.route('/transaction')
 def transaction():
-  data = db.readtransaction(None)
-  return render_template('/pages/transaction.html', data=data)
+    if session['role'] == 'user':
+        data = db.readtransaction(session['username'])
+    else:
+        data = db.readtransaction(None)
+    return render_template('/pages/transaction.html', data=data)
 
 
 # admin
@@ -271,7 +274,7 @@ def report():
 def acctransaksi(id):
     data = db.readtransaction(id)
     if data:
-        current_status = data[0][6]
+        current_status = data[0][10]
 
         if current_status == 'PENDING':
             new_status = 'ON MEET'

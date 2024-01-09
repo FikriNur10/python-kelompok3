@@ -4620,7 +4620,8 @@ html:not(.tablet):not(.mobile)[data-x-mode='true'] .thumbnail-corporate:hover .t
 }
 
 .thumbnail-light-image {
-	width: 100%;
+    width: 270px;
+    height: 150px;
 }
 
 @media (max-width: 575.98px) {
@@ -5929,8 +5930,10 @@ html:not(.tablet):not(.mobile) .profile-classic-caption {
 }
 
 .profile-creative-image {
-	width: 100%;
-	border-radius: 6px;
+    height: 170px;
+    width: 170px;
+    object-fit: cover;
+    border-radius: 6px;
 }
 
 .profile-creative-main {
