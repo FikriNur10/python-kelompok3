@@ -99,10 +99,12 @@ def property():
   data = db.read(None)
   return render_template('/pages/property.html', propertyActive=True, data=data)
 
+
 @app.route('/transaction')
 def transaction():
   data = db.readtransaction(None)
   return render_template('/pages/transaction.html', data=data)
+
 
 # admin
 @app.route('/manage')
@@ -263,11 +265,15 @@ def pdf():
 def acctransaksi(id):
     data = db.readtransaction(id)
     if data:
-        current_status = data[0][5]
+        current_status = data[0][6]
 
         if current_status == 'PENDING':
-            new_status = 'ON GOING'
-        elif current_status == 'ON GOING':
+            new_status = 'ON MEET'
+        elif current_status == 'ON MEET':
+            new_status = 'INQUIRY'
+        elif current_status == 'INQUIRY':
+            new_status = 'IN PAYMENT'
+        elif current_status == 'IN PAYMENT':
             new_status = 'COMPLETED'
         else:
             return redirect('/transaction')
@@ -280,6 +286,11 @@ def acctransaksi(id):
         flash(f'Transaksi dengan ID {id} tidak ditemukan')
 
     return redirect('/transaction')
+  
+@app.route('/rejecttransaksi/<int:id>')
+def rejecttransaksi(id):
+	flash(db.rejectStatus(id))
+	return redirect('/transaction')
   
 if __name__ == '__main__':
     app.run(debug = True)

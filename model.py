@@ -287,7 +287,21 @@ class Database:
             return False
         finally:
             con.close()
-    
+            
+    def rejectStatus(self, id):
+        con = self.connect()
+        cursor = con.cursor()
+        try:
+            cursor.execute('UPDATE transactions SET status = "REJECTED" WHERE id = %s', (id))
+            con.commit()
+            return "Transaction Rejected"
+        except Exception as e:
+            print(f"Error in update_status_transaction: {e}")
+            con.rollback()
+            return "Transaction Reject Failed"
+        finally:
+            con.close()
+            
     def read_transaction_by_id(self, id):
         con = self.connect()
         cursor = con.cursor()
