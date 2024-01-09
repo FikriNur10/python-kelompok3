@@ -253,22 +253,26 @@ def email():
 
 @app.route('/report', methods=['GET', 'POST'])
 def report():
-  if request.method == 'POST' :
-      try:
-          start_date = request.form['startdate']
-          end_date = request.form['enddate']
-          data_from_db = db.readdate(start_date, end_date)
-          rendered = render_template('/pages/pdftemplate.html', data_from_db=data_from_db)
-          config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltox\\bin\\wkhtmltopdf.exe')
-          pdf = pdfkit.from_string(rendered, configuration=config)
-          response = make_response(pdf)
-          response.headers['Content-Type'] = 'application/pdf'
-          response.headers['Content-Disposition'] = 'attachment; filename=report.pdf'
-          return response
-      except Exception as e:
-          flash('Generate Report Failed')
-          return redirect('/report')
-  return render_template('/pages/pdf.html')
+    if request.method == 'POST':
+        try:
+            start_date = request.form['startdate']
+            end_date = request.form['enddate']
+            data_from_db = db.readdate(start_date, end_date, session['role'], session['username'])
+            if not data_from_db:
+                flash('Cannot generate PDF for empty list.')
+                return redirect('/report')
+            rendered = render_template('/pages/pdftemplate.html', data_from_db=data_from_db)
+            config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
+            pdf = pdfkit.from_string(rendered, configuration=config)
+            response = make_response(pdf)
+            response.headers['Content-Type'] = 'application/pdf'
+            response.headers['Content-Disposition'] = 'attachment; filename=report.pdf'
+            return response
+        except Exception as e:
+            flash('Generate Report Failed')
+            return redirect('/report')
+
+    return render_template('/pages/pdf.html')
 
 @app.route('/acctransaksi/<int:id>')
 def acctransaksi(id):
