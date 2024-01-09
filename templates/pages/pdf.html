@@ -1,0 +1,61 @@
+{% extends 'layout.html' %} {% block content %}
+<!-- Breadcrumbs -->
+<section
+	class="section novi-background breadcrumbs-custom bg-image context-dark"
+	style="background-image: url(static/images/contact.jpg)"
+>
+	<div class="breadcrumbs-custom-inner">
+		<div class="container breadcrumbs-custom-container">
+			<div class="breadcrumbs-custom-main">
+				<h6 class="breadcrumbs-custom-subtitle title-decorated">
+					Transaction Reports
+				</h6>
+				<h2 class="text-uppercase breadcrumbs-custom-title">
+					Transaction Reports
+				</h2>
+			</div>
+			<ul class="breadcrumbs-custom-path">
+				<li><a href="/">Home</a></li>
+				<li class="active">Transaction Reports</li>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<!-- Message -->
+<section class="content-header">
+  {% for message in get_flashed_messages()%}
+  <div class="alert alert-info alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      {{ message }}
+  </div>
+  {% endfor%}
+</section>
+<section class="section novi-background bg-gray-100">
+	<div class="range justify-content-xl-between">
+		<div class="cell-xl-6 align-self-center container">
+			<div class="row">
+				<div class="col-lg-9 cell-inner">
+					<div class="section-lg">
+						<h3 class="text-uppercase wow-outer">
+							<span class="wow slideInDown">Transaction Report</span>
+						</h3>
+						<!-- RD Mailform-->
+						<form action="/report" method="POST">
+                            <div class="form-group">
+                                <label for="inputTanggal">Start Date</label>
+                                <input type="date" class="form-control" name="startdate">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputTanggal">End Date</label>
+                                <input type="date" class="form-control" name="enddate">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Generate Report</button>  
+                        </form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

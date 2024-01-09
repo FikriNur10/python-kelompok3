@@ -260,15 +260,21 @@ class Database:
         finally:
             con.close()
 
-    def readuser(self, username):
+    def readdate(self, startdate, enddate):
         con = Database.connect(self)
         cursor = con.cursor()
         try:
-            if username == None:
-                cursor.execute('SELECT * FROM user')
+            if startdate == '' and enddate == '':
+                cursor.execute('SELECT * FROM transactions')
+            elif startdate != '' and enddate == '':
+                cursor.execute('SELECT * FROM transactions WHERE created_at LIKE %s', ('%' + startdate + '%',))
+            elif startdate == '' and enddate != '':
+                cursor.execute('SELECT * FROM transactions WHERE created_at LIKE %s', ('%' + enddate + '%',))
             else:
-                cursor.execute('SELECT * FROM user WHERE username = %s',(username,))
-            return cursor.fetchall()
+                cursor.execute('SELECT * FROM transactions WHERE created_at BETWEEN %s AND %s', (startdate, enddate,))
+            data = cursor.fetchall()
+            print(f"Data from readtransaction: {data}")
+            return data
         except:
             return ()
         finally:

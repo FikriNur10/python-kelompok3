@@ -20,10 +20,10 @@
          </tr>
         </thead>
         <tbody>
-         {% if data|length == 0 %}
+         {% if data_from_db|length == 0 %}
            <b>No Entry Has Been Added</b> <br/>
          {% else %}
-           {% for row in data %}
+           {% for row in data_from_db %}
          <tr>
             <td class="text-center"><b>{{row[0]}}</b></td>   
             <td class="text-center"><b>{{row[1]}}</b></td>   

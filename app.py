@@ -236,27 +236,32 @@ def email():
             mail = Mail(app)
             mail.connect()
             mail.send(pesan)
-            flash('Email Berhasil Dikirim ke '+ to)
+            flash('Email Sent to '+ to)
             return redirect('/email')
         except:
-            flash('Email Gagal Dikirim ke '+ to)
+            flash('Failed to Sent Email!!')
             return redirect('/email')
 
     return render_template('pages/email.html', emailactive = True, alluser=alluser, emailuser=emailuser)
 
-@app.route('/pdf')
-def pdf():
-    data = db.readtransaction(None)  
-    rendered = render_template('/pages/pdftemplate.html', data=data)
-
-    config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
-    
-    pdf = pdfkit.from_string(rendered, configuration=config)
-    
-    response = make_response(pdf)
-    response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = 'attachment; filename=report.pdf'
-    return response
+@app.route('/report', methods=['GET', 'POST'])
+def report():
+  if request.method == 'POST' :
+      try:
+          start_date = request.form['startdate']
+          end_date = request.form['enddate']
+          data_from_db = db.readdate(start_date, end_date)
+          rendered = render_template('/pages/pdftemplate.html', data_from_db=data_from_db)
+          config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltox\\bin\\wkhtmltopdf.exe')
+          pdf = pdfkit.from_string(rendered, configuration=config)
+          response = make_response(pdf)
+          response.headers['Content-Type'] = 'application/pdf'
+          response.headers['Content-Disposition'] = 'attachment; filename=report.pdf'
+          return response
+      except Exception as e:
+          flash('Generate Report Failed')
+          return redirect('/report')
+  return render_template('/pages/pdf.html')
 
 if __name__ == '__main__':
     app.run(debug = True)
