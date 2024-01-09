@@ -46,59 +46,36 @@
   <div class="container">
     <h3 class="text-uppercase font-weight-bold wow-outer"><span class="wow slideInDown">Popular properties</span></h3>
     <div class="row row-lg-50 row-35 offset-top-2">
-      <div class="col-md-6 wow-outer">
-        <!-- Post Modern-->
-        <article class="post-modern wow slideInLeft">
-          <a class="post-modern-media" href="#"><img src="https://tjh.com/wp-content/uploads/2023/04/denver-new-home-Meade2.webp" alt="" width="571" height="353" /></a>
-          <h4 class="post-modern-title"><a class="post-modern-title" href="#">5619 Walnut Hill Ln, Dallas, TX 75229</a></h4>
-          <ul class="post-modern-meta">
-            <li><a class="button-winona" href="#">$1500/mon</a></li>
-            <li>30 Sq. Ft.</li>
-            <li>3 Bedrooms</li>
-          </ul>
-          <p>A comfortable residential property located in a quiet and cozy area.</p>
-        </article>
-      </div>
-      <div class="col-md-6 wow-outer">
-        <!-- Post Modern-->
-        <article class="post-modern wow slideInLeft">
-          <a class="post-modern-media" href="#"><img src="https://tjh.com/wp-content/uploads/2023/04/denver-new-home-Meade2.webp" alt="" width="571" height="353" /></a>
-          <h4 class="post-modern-title"><a class="post-modern-title" href="#">1808 Bolingbroke Pl, Fort Worth, TX 76140</a></h4>
-          <ul class="post-modern-meta">
-            <li><a class="button-winona" href="#">$1300/mon</a></li>
-            <li>40 Sq. Ft.</li>
-            <li>2 Bedrooms</li>
-          </ul>
-          <p>Perfect for those who love both city life and the countryside.</p>
-        </article>
-      </div>
-      <div class="col-md-6 wow-outer">
-        <!-- Post Modern-->
-        <article class="post-modern wow slideInLeft">
-          <a class="post-modern-media" href="#"><img src="https://tjh.com/wp-content/uploads/2023/04/denver-new-home-Meade2.webp" alt="" width="571" height="353" /></a>
-          <h4 class="post-modern-title"><a class="post-modern-title" href="#">924 Bel Air Rd, Los Angeles, CA 90077</a></h4>
-          <ul class="post-modern-meta">
-            <li><a class="button-winona" href="#">1800/mon</a></li>
-            <li>50 Sq. Ft.</li>
-            <li>4 Bedrooms</li>
-          </ul>
-          <p>Located in 5 mins from downtown, this property is great for anyone.</p>
-        </article>
-      </div>
-      <div class="col-md-6 wow-outer">
-        <!-- Post Modern-->
-        <article class="post-modern wow slideInLeft">
-          <a class="post-modern-media" href="#"><img src="https://tjh.com/wp-content/uploads/2023/04/denver-new-home-Meade2.webp" alt="" width="571" height="353" /></a>
-          <h4 class="post-modern-title"><a class="post-modern-title" href="#">13510 W Cheery Lynn Rd, Avondale, AZ 85392</a></h4>
-          <ul class="post-modern-meta">
-            <li><a class="button-winona" href="#">$2700/mon</a></li>
-            <li>90 Sq. Ft.</li>
-            <li>2 Bedrooms</li>
-          </ul>
-          <p>A luxury mansion for people who enjoy the high-end amenities.</p>
-        </article>
-      </div>
-      <div class="col-md-12 wow-outer"><a class="button button-primary button-winona button-md" href="#">view More properties</a></div>
+      <div class="container">
+        <!-- Base typography-->
+        <div class="row row-lg-50 row-35 offset-top-2">
+            {% if data|length == 0 %}
+            <b>No Entry Has Been Added</b> <br />
+            {% else %} {% for row in data %}
+            <div class="col-md-6 wow-outer">
+                <!-- Post Modern-->
+                <article class="post-modern wow slideInLeft">
+                    <a class="post-modern-media" href="#">
+                        <img src="../static/uploads/{{ row['image'] }}" alt="" width="570" height="353" />
+                    </a>
+                    <h4 class="post-modern-title">
+                        <a class="post-modern-title" href="#">{{row['name']}}</a>
+                    </h4>
+                    <ul class="post-modern-meta">
+                        <li>
+                            <a class="button-winona" href="#">Rp. {{row['price']}}</a>
+                        </li>
+                        <li>{{row['address']}}</li>
+                    </ul>
+                    <p>{{row['description']}}.</p>
+                    <div style="padding: 10px 0px">
+                        <a href="#" class="btn" style="background-color: blue; color: white" data-toggle="modal"
+                            data-target="#scheduleModal" data-property-id="{{row['id']}}">Buy Now</a>
+                    </div>
+                </article>
+            </div>
+            {% endfor %} {% endif %}
+        </div>
     </div>
   </div>
 </section>
@@ -184,95 +161,67 @@
     </div>
   </div>
 </section>
-<section class="section novi-background section-lg text-center bg-gray-100">
+<section class="section novi-background section-lg text-center">
   <div class="container">
     <h3 class="text-uppercase wow-outer"><span class="wow slideInUp">Our Team</span></h3>
-    <div class="row row-lg-50 row-35 row-xxl-70 justify-content-center justify-content-lg-start">
+    <div class="row row-50 row-xxl-70 justify-content-center justify-content-lg-start">
       <div class="col-md-10 col-lg-6 wow-outer">
         <!-- Profile Creative-->
         <article class="profile-creative wow slideInLeft">
-          <figure class="profile-creative-figure">
-            <img
-              class="profile-creative-image"
-              src="https://cdn1-production-images-kly.akamaized.net/wizlXmBAHhmiy_OONOjOEExmiEU=/500x500/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4473096/original/079167400_1687227614-6682d4172ec12c5a0e8ad5271c3495ee.jpg"
-              alt=""
-              width="270"
-              height="273"
-            />
+          <figure class="profile-creative-figure"><img class="profile-creative-image" src="static/images/handi.jpg" alt="" width="270" height="273"/>
           </figure>
           <div class="profile-creative-main">
-            <h5 class="profile-creative-title"><a href="#">Glenda Jocelyn</a></h5>
-            <p class="profile-creative-position">Founder, Broker</p>
+            <h5 class="profile-creative-title"><a href="#">Handi Kurniawan</a></h5>
+            <p class="profile-creative-position">Founder, 21</p>
             <div class="profile-creative-contacts">
-              <div class="object-inline"><span class="icon novi-icon icon-md mdi mdi-phone"></span><a href="tel:#">1-800-1324-567</a></div>
+              <div class="object-inline"><span class="icon novi-icon icon-md mdi mdi-phone"></span><a href="tel:#"> 62-821-7695-5668</a></div>
             </div>
-            <p>Ms. Porter founded our company in 1989 with a vision to help guests and residents of the USA to easily find and buy or rent real estate in all 50 states.</p>
+            <p>Mr. Kurniawan founded our company in 2018 with a vision to help guests and residents of the USA easily find and buy or rent real estate in all 10 states. His extensive experience and leadership have been instrumental in our company's success.</p>
           </div>
         </article>
       </div>
       <div class="col-md-10 col-lg-6 wow-outer">
         <!-- Profile Creative-->
         <article class="profile-creative wow slideInLeft" data-wow-delay=".2s">
-          <figure class="profile-creative-figure">
-            <img
-              class="profile-creative-image"
-              src="https://cdn1-production-images-kly.akamaized.net/wizlXmBAHhmiy_OONOjOEExmiEU=/500x500/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4473096/original/079167400_1687227614-6682d4172ec12c5a0e8ad5271c3495ee.jpg"
-              alt=""
-              width="270"
-              height="273"
-            />
-          </figure>
-          <div class="profile-creative-main">
-            <h5 class="profile-creative-title"><a href="#">Handi Escobar</a></h5>
-            <p class="profile-creative-position">Sales Associate</p>
-            <div class="profile-creative-contacts">
-              <div class="object-inline"><span class="icon novi-icon icon-md mdi mdi-phone"></span><a href="tel:#">1-800-1324-567</a></div>
-            </div>
-            <p>John has been in sales and marketing for the past 15 years. He has excellent knowledge about the local market both residential and commercial.</p>
-          </div>
-        </article>
-      </div>
-      <div class="col-md-10 col-lg-6 wow-outer">
-        <!-- Profile Creative-->
-        <article class="profile-creative wow slideInLeft">
-          <figure class="profile-creative-figure">
-            <img
-              class="profile-creative-image"
-              src="https://cdn1-production-images-kly.akamaized.net/wizlXmBAHhmiy_OONOjOEExmiEU=/500x500/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4473096/original/079167400_1687227614-6682d4172ec12c5a0e8ad5271c3495ee.jpg"
-              alt=""
-              width="270"
-              height="273"
-            />
+          <figure class="profile-creative-figure"><img class="profile-creative-image" src="static/images/davin.png" alt="" width="270" height="273"/>
           </figure>
           <div class="profile-creative-main">
             <h5 class="profile-creative-title"><a href="#">Davin</a></h5>
-            <p class="profile-creative-position">Realtor</p>
+            <p class="profile-creative-position">Sales Associate, 21</p>
             <div class="profile-creative-contacts">
-              <div class="object-inline"><span class="icon novi-icon icon-md mdi mdi-phone"></span><a href="tel:#">1-800-1324-567</a></div>
+              <div class="object-inline"><span class="icon novi-icon icon-md mdi mdi-phone"></span><a href="tel:#"> 62-853-1113-8525</a></div>
             </div>
-            <p>Brian is not only a Licensed Realtor but also holds the Title Producers and Mortgage Licenses, which makes him a very knowledgeable real estate expert.</p>
+            <p>Davin has been in sales and marketing for the past 6 years. He possesses excellent knowledge of the local market, both residential and commercial. With his strong communication skills and market expertise, he assists clients in making well-informed real estate decisions.</p>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-10 col-lg-6 wow-outer">
+        <!-- Profile Creative-->
+        <article class="profile-creative wow slideInLeft">
+          <figure class="profile-creative-figure"><img class="profile-creative-image" src="static/images/joce.png" alt="" width="270" height="273"/>
+          </figure>
+          <div class="profile-creative-main">
+            <h5 class="profile-creative-title"><a href="#">Glenda Jocelyn</a></h5>
+            <p class="profile-creative-position">Realtor, 20</p>
+            <div class="profile-creative-contacts">
+              <div class="object-inline"><span class="icon novi-icon icon-md mdi mdi-phone"></span><a href="tel:#"> 62-812-8855-9693</a></div>
+            </div>
+            <p>Glenda is not only a Licensed Realtor but also holds the Title Producers and Mortgage Licenses, making her a very knowledgeable real estate expert. Her dedication to providing exceptional service and expertise ensures that clients have a smooth real estate experience.</p>
           </div>
         </article>
       </div>
       <div class="col-md-10 col-lg-6 wow-outer">
         <!-- Profile Creative-->
         <article class="profile-creative wow slideInLeft" data-wow-delay=".2s">
-          <figure class="profile-creative-figure">
-            <img
-              class="profile-creative-image"
-              src="https://cdn1-production-images-kly.akamaized.net/wizlXmBAHhmiy_OONOjOEExmiEU=/500x500/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4473096/original/079167400_1687227614-6682d4172ec12c5a0e8ad5271c3495ee.jpg"
-              alt=""
-              width="270"
-              height="273"
-            />
+          <figure class="profile-creative-figure"><img class="profile-creative-image" src="static/images/fikri1.png" alt="" width="270" height="273"/>
           </figure>
           <div class="profile-creative-main">
-            <h5 class="profile-creative-title"><a href="#">Fikri Saturo</a></h5>
-            <p class="profile-creative-position">Broker</p>
+            <h5 class="profile-creative-title"><a href="#">Fikri Nur Diega</a></h5>
+            <p class="profile-creative-position">Broker, 20</p>
             <div class="profile-creative-contacts">
-              <div class="object-inline"><span class="icon novi-icon icon-md mdi mdi-phone"></span><a href="tel:#">1-800-1324-567</a></div>
+              <div class="object-inline"><span class="icon novi-icon icon-md mdi mdi-phone"></span><a href="tel:#"> 62-822-4610-0194</a></div>
             </div>
-            <p>Marie’s goal is to provide clients with the highest level of marketing expertise and customer service to help them reach their uppermost real estate goals.</p>
+            <p>Fikri's goal is to provide clients with the highest level of marketing expertise and customer service to help them reach their uppermost real estate goals. His experience as a broker makes him an invaluable resource for clients looking to buy or sell property.</p>
           </div>
         </article>
       </div>

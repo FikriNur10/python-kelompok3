@@ -18,7 +18,8 @@ db = Database()
 
 @app.route('/')
 def index():
-  return render_template('index.html', homeActive=True)
+  data = db.read(None)
+  return render_template('index.html', homeActive=True, data=data)
 
 @app.route('/about')
 def about():
