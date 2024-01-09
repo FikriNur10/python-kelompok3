@@ -332,3 +332,17 @@ class Database:
             return None
         finally:
             con.close()
+
+    def readaccount(self, username):
+        con = Database.connect(self)
+        cursor = con.cursor()
+        try:
+            if username == None:
+                cursor.execute('SELECT * FROM user')
+            else:
+                cursor.execute('SELECT * FROM user WHERE username = %s',(username,))
+            return cursor.fetchall()
+        except:
+            return ()
+        finally:
+            con.close()
